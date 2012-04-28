@@ -10,16 +10,20 @@
 
 @implementation NSNumber (sqlRepresentation)
 
-- (NSString *)toSql {
-    return [NSString stringWithFormat:@"%d", [self intValue]];
+- (id)toSql {
+    return self;
 }
 
 + (const char *)sqlType {
     return "integer";
 }
 
-+ (id)fromSql:(NSString *)sqlData{
-    return [NSNumber numberWithInteger:[sqlData integerValue]];
++ (id)fromSql:(id)sqlData{
+    return sqlData;
+}
+
++ (ARDataType)dataType {
+    return ARDataTypeInteger;
 }
 
 @end

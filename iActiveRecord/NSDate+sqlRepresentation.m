@@ -10,18 +10,22 @@
 
 @implementation NSDate (sqlRepresentation)
 
-- (NSString *)toSql {
+- (id)toSql {
     NSTimeInterval time = [self timeIntervalSince1970];
-    return [NSString stringWithFormat:@"%f", time];
+    return [NSDecimalNumber numberWithFloat:time];
 }
 
-+ (id)fromSql:(NSString *)sqlData {
++ (id)fromSql:(id)sqlData {
     NSTimeInterval time = [sqlData floatValue];
     return [NSDate dateWithTimeIntervalSince1970:time];
 }
 
 + (const char *)sqlType {
     return "INTEGER";
+}
+
++ (ARDataType)dataType {
+    return ARDataTypeFloat;
 }
 
 @end

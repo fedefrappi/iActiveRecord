@@ -10,16 +10,20 @@
 
 @implementation NSString (sqlRepresentation)
 
-+ (id)fromSql:(NSString *)sqlData{
++ (id)fromSql:(id)sqlData{
     return sqlData;
 }
 
-- (NSString *)toSql {
+- (id)toSql {
     return self;
 }
 
 + (const char *)sqlType {
     return "text";
+}
+
++ (ARDataType)dataType {
+    return ARDataTypeString;
 }
 
 @end

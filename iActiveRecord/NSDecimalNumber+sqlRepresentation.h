@@ -7,11 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ARDataType.h"
 
 @interface NSDecimalNumber (sqlRepresentation)
 
 + (const char *)sqlType;
-- (NSString *)toSql;
-+ (id)fromSql:(NSString *)sqlData;
+- (id)toSql;
++ (id)fromSql:(id)sqlData;
++ (ARDataType)dataType;
 
 @end

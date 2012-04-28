@@ -7,11 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ARDataType.h"
 
 @interface NSString (sqlRepresentation)
 
 + (const char *)sqlType;
-+ (id)fromSql:(NSString *)sqlData;
-- (NSString *)toSql;
+
++ (id)fromSql:(id)sqlData;
+- (id)toSql;
++ (ARDataType)dataType;
 
 @end

@@ -12,16 +12,20 @@
 
 @implementation NSData (sqlRepresentation)
 
-- (NSString *)toSql {
-    return [self base64EncodedString];
+- (id)toSql {
+    return self;
 }
 
-+ (id)fromSql:(NSString *)sqlData {
-    return [NSData dataFromBase64String:sqlData];
++ (id)fromSql:(id)sqlData {
+    return sqlData;
 }
 
 + (const char *)sqlType {
     return "blob";
+}
+
++ (ARDataType)dataType {
+    return ARDataTypeBlob;
 }
 
 @end

@@ -10,16 +10,20 @@
 
 @implementation NSDecimalNumber (sqlRepresentation)
 
-- (NSString *)toSql {
-    return [NSString stringWithFormat:@"%f", [self floatValue]];
+- (id)toSql {
+    return self;
 }
 
 + (const char *)sqlType {
     return "real";
 }
 
-+ (id)fromSql:(NSString *)sqlData {
-    return [NSDecimalNumber decimalNumberWithString:sqlData];
++ (id)fromSql:(id)sqlData {
+    return sqlData;
+}
+
++ (ARDataType)dataType {
+    return ARDataTypeFloat;
 }
 
 @end
