@@ -27,7 +27,7 @@ describe(@"ActiveRecord", ^{
         car.model = @"UAZ 2101";
         [car save];
         Car *firstCar = [[Car allRecords] first];
-        expect(car.model).toEqual(firstCar.model);
+        expect(firstCar.model).toEqual(car.model);
     });
 });
 

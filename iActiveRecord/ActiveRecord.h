@@ -29,6 +29,8 @@ typedef void (^ARTransactionBlock)();
 #define ar_rollback \
     [ARException raise];
 
+@class ARLazyFetcher;
+
 @interface ActiveRecord : NSObject
 
 @property (nonatomic, retain) NSNumber *id;
