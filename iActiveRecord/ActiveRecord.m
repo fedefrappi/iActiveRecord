@@ -36,7 +36,11 @@
 
 #import "ActiveRecord_Private.h"
 
+#import "ARColumn.h"
+#import "ARColumn_Private.h"
+
 static NSMutableDictionary *relationshipsDictionary = nil;
+static NSMutableDictionary *columnsDictionary = nil;
 
 @implementation ActiveRecord
 
@@ -205,9 +209,19 @@ static NSString *registerHasManyThrough = @"_ar_registerHasManyThrough";
         changedFields = [NSMutableSet new];
     }
     [changedFields addObject:aField];
+    
+    if(updatedColumns == nil){
+        updatedColumns = [NSMutableSet new];
+    }
+    ARColumn *column = [self columnNamed:aField];
+    [updatedColumns addObject:column];
 }
 
 - (void)setValue:(id)value forKey:(NSString *)key {
+    NSLog(@"%@ %@", value, key);
+    if([[self valueForKey:key] isEqual:value]){
+        return;
+    }
     [self didChangeField:key];
     [super setValue:value forKey:key];
 }
@@ -675,6 +689,45 @@ static NSString *registerHasManyThrough = @"_ar_registerHasManyThrough";
             [[ARDatabaseManager sharedInstance] executeSqlQuery:"ROLLBACK"];
         }
     }
+}
+
++ (void)registerColumns {
+    if(columnsDictionary == nil){
+        columnsDictionary = [NSMutableDictionary new];
+    }
+    Class ActiveRecordClass = NSClassFromString(@"NSObject");
+    id CurrentClass = self;
+    while(nil != CurrentClass && CurrentClass != ActiveRecordClass){
+        unsigned int outCount, i;
+        objc_property_t *properties = class_copyPropertyList(CurrentClass, &outCount);
+        for (i = 0; i < outCount; i++) {
+            ARColumn *column = [[ARColumn alloc] initWithProperty:properties[i]];
+            [columnsDictionary addValue:column
+                           toArrayNamed:[self tableName]];
+            [column release];
+        }
+        CurrentClass = class_getSuperclass(CurrentClass);
+    }    
+}
+
++ (NSArray *)columns {
+    if (columnsDictionary == nil) {
+        [self registerColumns];
+    }
+    return [columnsDictionary objectForKey:[self tableName]];
+}
+
+- (NSArray *)columns {
+    return [self columns];
+}
+
+- (NSArray *)updatedColumns {
+    return [updatedColumns allObjects];
+}
+
+- (ARColumn *)columnNamed:(NSString *)aColumnName {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"columnName = %@", aColumnName];
+    return [[[self columns] filteredArrayUsingPredicate:predicate] first];
 }
 
 @end

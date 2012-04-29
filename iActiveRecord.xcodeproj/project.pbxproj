@@ -574,6 +574,7 @@
 		25998EDC14BC19E200CA2490 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				CA485F35154D6FD200C37CD8 /* ARDatabaseManager */,
 				CA9EC79E154D5B2300A9DD4D /* ARColumn */,
 				CA6EEA15154C8C7800B07AB4 /* Enums */,
 				CA6EEA0F154C8BBB00B07AB4 /* SQLRepresentation */,
@@ -707,10 +708,17 @@
 		CA3D18021519D56A00FA3F3C /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+			);
+			name = Managers;
+			sourceTree = "<group>";
+		};
+		CA485F35154D6FD200C37CD8 /* ARDatabaseManager */ = {
+			isa = PBXGroup;
+			children = (
 				25998EE214BC1A1D00CA2490 /* ARDatabaseManager.h */,
 				25998EE314BC1A1D00CA2490 /* ARDatabaseManager.m */,
 			);
-			name = Managers;
+			name = ARDatabaseManager;
 			sourceTree = "<group>";
 		};
 		CA62C30A151E0AB800E54276 /* Other Frameworks */ = {

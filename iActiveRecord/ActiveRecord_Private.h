@@ -8,6 +8,8 @@
 
 #import "ActiveRecord.h"
 
+@class ARColumn;
+
 @interface ActiveRecord ()
 
 {
@@ -15,6 +17,7 @@
     BOOL isNew;
     NSMutableSet *errors;
     NSMutableSet *changedFields;
+    NSMutableSet *updatedColumns;
 }
 
 #pragma mark - Static Fields
@@ -91,5 +94,15 @@
 #pragma mark - private before filter
 
 - (void)privateAfterDestroy;
+
+#pragma mark - New Logic
+
++ (void)registerColumns;
+
++ (NSArray *)columns;
+- (NSArray *)columns;
+
+- (NSArray *)updatedColumns;
+- (ARColumn *)columnNamed:(NSString *)aColumnName;
 
 @end

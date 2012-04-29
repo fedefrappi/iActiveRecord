@@ -15,6 +15,7 @@
 #import "sqlite3_unicode.h"
 #import "ActiveRecord_Private.h"
 #import "ARDataType.h"
+#import "ARColumn.h"
 
 const static char *const kDataTypes[] = {"integer", "real", "text", "blob" };
 
@@ -403,7 +404,9 @@ static BOOL migrationsEnabled = YES;
 #pragma mark - new logic
 
 - (NSInteger)saveRecord:(ActiveRecord *)aRecord {
-    
+    for(ARColumn *column in [aRecord updatedColumns]){
+        NSLog(@"%@", column);
+    }
     return 0;
 }
 

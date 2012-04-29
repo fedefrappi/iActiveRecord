@@ -11,20 +11,27 @@
 
 @implementation ARColumn
 
-@synthesize propertyName;
-@synthesize propertyClass;
+@synthesize columnName;
+@synthesize columnClass;
 
 - (id)initWithProperty:(objc_property_t)property {
     self = [super init];
     if(nil != self){
-        self.propertyName = [NSString stringWithUTF8String:property_getName(property)];
+        self.columnName = [NSString stringWithUTF8String:property_getName(property)];
         NSString *propertyAttributes = [NSString stringWithUTF8String:property_getAttributes(property)];
         NSString *type = [[propertyAttributes componentsSeparatedByString:@","] objectAtIndex:0];
         NSString *propertyType = [type stringByTrimmingCharactersInSet:
                                   [NSCharacterSet characterSetWithCharactersInString:@"T@\""]];
-        self.propertyClass = NSClassFromString(propertyType);
+        self.columnClass = NSClassFromString(propertyType);
     }
     return self;
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat:
+            @"Column: %@ %@", 
+            self.columnName, 
+            NSStringFromClass(self.columnClass)];
 }
 
 @end
