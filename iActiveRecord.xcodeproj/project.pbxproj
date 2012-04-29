@@ -114,6 +114,10 @@
 		CA8D9EB0152D7876005F9073 /* NSString+stringWithEscapedQuote.m in Sources */ = {isa = PBXBuildFile; fileRef = CA8D9EAE152D7876005F9073 /* NSString+stringWithEscapedQuote.m */; };
 		CA8D9EB1152D7876005F9073 /* NSString+stringWithEscapedQuote.m in Sources */ = {isa = PBXBuildFile; fileRef = CA8D9EAE152D7876005F9073 /* NSString+stringWithEscapedQuote.m */; };
 		CA8D9EB2152D7876005F9073 /* NSString+stringWithEscapedQuote.m in Sources */ = {isa = PBXBuildFile; fileRef = CA8D9EAE152D7876005F9073 /* NSString+stringWithEscapedQuote.m */; };
+		CA9EC799154D550900A9DD4D /* Car.h in Headers */ = {isa = PBXBuildFile; fileRef = CA9EC797154D550900A9DD4D /* Car.h */; };
+		CA9EC79A154D550900A9DD4D /* Car.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9EC798154D550900A9DD4D /* Car.m */; };
+		CA9EC79B154D550900A9DD4D /* Car.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9EC798154D550900A9DD4D /* Car.m */; };
+		CA9EC79C154D550900A9DD4D /* Car.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9EC798154D550900A9DD4D /* Car.m */; };
 		CAAE32BA15244C330080447D /* NSDate+sqlRepresentation.h in Headers */ = {isa = PBXBuildFile; fileRef = CAAE32B815244C330080447D /* NSDate+sqlRepresentation.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		CAAE32BB15244C330080447D /* NSDate+sqlRepresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = CAAE32B915244C330080447D /* NSDate+sqlRepresentation.m */; };
 		CAAE32BC15244C330080447D /* NSDate+sqlRepresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = CAAE32B915244C330080447D /* NSDate+sqlRepresentation.m */; };
@@ -305,6 +309,8 @@
 		CA8D9EAD152D7876005F9073 /* NSString+stringWithEscapedQuote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+stringWithEscapedQuote.h"; sourceTree = "<group>"; };
 		CA8D9EAE152D7876005F9073 /* NSString+stringWithEscapedQuote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+stringWithEscapedQuote.m"; sourceTree = "<group>"; };
 		CA8D9EDF152EC5EB005F9073 /* ARJoinSpecs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARJoinSpecs.h; sourceTree = "<group>"; };
+		CA9EC797154D550900A9DD4D /* Car.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Car.h; path = TestSources/Car.h; sourceTree = "<group>"; };
+		CA9EC798154D550900A9DD4D /* Car.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Car.m; path = TestSources/Car.m; sourceTree = "<group>"; };
 		CAAE32B815244C330080447D /* NSDate+sqlRepresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+sqlRepresentation.h"; sourceTree = "<group>"; };
 		CAAE32B915244C330080447D /* NSDate+sqlRepresentation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+sqlRepresentation.m"; sourceTree = "<group>"; };
 		CAAE32E91525F2480080447D /* ARValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARValidator.h; sourceTree = "<group>"; };
@@ -344,6 +350,7 @@
 		CAAE33BA1528C4710080447D /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = TestSources/AppDelegate.h; sourceTree = "<group>"; };
 		CAAE33BB1528C4710080447D /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = TestSources/AppDelegate.m; sourceTree = "<group>"; };
 		CAAE33BE1528C47E0080447D /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = TestSources/main.m; sourceTree = "<group>"; };
+		CAAF1EF3154D534A009EB399 /* SaveLoadSpecs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SaveLoadSpecs.h; sourceTree = "<group>"; };
 		CAAF5D92151A15EB004C4329 /* ARFactorySpecs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARFactorySpecs.h; sourceTree = "<group>"; };
 		CAAF5D9F151A5148004C4329 /* NSArray+objectsAccessors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+objectsAccessors.h"; sourceTree = "<group>"; };
 		CAAF5DA0151A5148004C4329 /* NSArray+objectsAccessors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+objectsAccessors.m"; sourceTree = "<group>"; };
@@ -441,13 +448,13 @@
 			isa = PBXGroup;
 			children = (
 				25922B5114EC29D100CBB58A /* SpecSet.h */,
+				CA3D18091519D63300FA3F3C /* FooSpec.h */,
 				25922B5214EC2A7A00CBB58A /* ValidationSpecs.h */,
 				25922B6814EC2D1600CBB58A /* DatabaseManagerSpecs.h */,
 				25922B6914EC310100CBB58A /* RelationshipsSpecs.h */,
 				CA3D17B61519257F00FA3F3C /* DropRecordSpecs.h */,
 				CA3D17BC15192A1B00FA3F3C /* CountSpecs.h */,
 				CA3D18081519D61F00FA3F3C /* ARLazyFetcherSpecs.h */,
-				CA3D18091519D63300FA3F3C /* FooSpec.h */,
 				CAAF5D92151A15EB004C4329 /* ARFactorySpecs.h */,
 				CABB90881520C26800E8D082 /* DependencySpecs.h */,
 				CAAE332C152849C80080447D /* MigrationsSpecs.h */,
@@ -455,6 +462,7 @@
 				CAAE337B1528AD5B0080447D /* UnicodeSpecs.h */,
 				CA8D9EDF152EC5EB005F9073 /* ARJoinSpecs.h */,
 				CAB56AE8153E69B20062DC9E /* NSDataSpecs.h */,
+				CAAF1EF3154D534A009EB399 /* SaveLoadSpecs.h */,
 			);
 			name = Specs;
 			sourceTree = "<group>";
@@ -618,6 +626,8 @@
 				CAAE33A51528C4500080447D /* User.m */,
 				CAAE33A61528C4500080447D /* UserProjectRelationship.h */,
 				CAAE33A71528C4500080447D /* UserProjectRelationship.m */,
+				CA9EC797154D550900A9DD4D /* Car.h */,
+				CA9EC798154D550900A9DD4D /* Car.m */,
 			);
 			name = "Test Entities";
 			sourceTree = "<group>";
@@ -956,6 +966,7 @@
 				CA0365C0151FCB5F004167F1 /* NSString+quotedString.h in Headers */,
 				CADA6AEF154472D800CCE41D /* NSMutableDictionary+valueToArray.h in Headers */,
 				CADA6AF7154473E600CCE41D /* ARBaseRelationship.h in Headers */,
+				CA9EC799154D550900A9DD4D /* Car.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1138,6 +1149,7 @@
 				CAB56AF0153E7ABE0062DC9E /* NSData+Base64.m in Sources */,
 				CADA6AF1154472D800CCE41D /* NSMutableDictionary+valueToArray.m in Sources */,
 				CADA6AF9154473E600CCE41D /* ARBaseRelationship.m in Sources */,
+				CA9EC79B154D550900A9DD4D /* Car.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1190,6 +1202,7 @@
 				CAB56AEF153E7ABE0062DC9E /* NSData+Base64.m in Sources */,
 				CADA6AF0154472D800CCE41D /* NSMutableDictionary+valueToArray.m in Sources */,
 				CADA6AF8154473E600CCE41D /* ARBaseRelationship.m in Sources */,
+				CA9EC79A154D550900A9DD4D /* Car.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1229,6 +1242,7 @@
 				CAB56AF1153E7ABE0062DC9E /* NSData+Base64.m in Sources */,
 				CADA6AF2154472D800CCE41D /* NSMutableDictionary+valueToArray.m in Sources */,
 				CADA6AFA154473E600CCE41D /* ARBaseRelationship.m in Sources */,
+				CA9EC79C154D550900A9DD4D /* Car.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

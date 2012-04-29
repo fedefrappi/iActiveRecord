@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <sqlite3.h>
 
+@class ActiveRecord;
+
 @interface ARDatabaseManager : NSObject
 {
     @private
@@ -51,6 +53,11 @@
 + (void)registerDatabase:(NSString *)aDatabaseName cachesDirectory:(BOOL)isCache;
 
 - (void)skipBackupAttributeToFile:(NSURL*) url;
+
+//  returns new record ID
+//  or 0 if save failure
+- (NSInteger)saveRecord:(ActiveRecord *)aRecord;
+
 
 @end
  

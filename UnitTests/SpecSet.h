@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 CoreInvader. All rights reserved.
 //
 
+#import "SaveLoadSpecs.h"
+/*
 #import "DependencySpecs.h"
 #import "FooSpec.h"
 #import "DatabaseManagerSpecs.h"
@@ -20,3 +22,4 @@
 #import "UnicodeSpecs.h"
 #import "ARJoinSpecs.h"
 #import "NSDataSpecs.h"
+ */

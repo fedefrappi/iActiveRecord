@@ -13,6 +13,10 @@
 #include <sys/xattr.h>
 #import "ARObjectProperty.h"
 #import "sqlite3_unicode.h"
+#import "ActiveRecord_Private.h"
+#import "ARDataType.h"
+
+const static char *const kDataTypes[] = {"integer", "real", "text", "blob" };
 
 #define DEFAULT_DBNAME @"database"
 
@@ -394,6 +398,13 @@ static BOOL migrationsEnabled = YES;
 
 + (void)disableMigrations {
     migrationsEnabled = NO;
+}
+
+#pragma mark - new logic
+
+- (NSInteger)saveRecord:(ActiveRecord *)aRecord {
+    
+    return 0;
 }
 
 @end

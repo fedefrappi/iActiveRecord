@@ -477,6 +477,9 @@ static NSString *registerHasManyThrough = @"_ar_registerHasManyThrough";
         return NO;
     }
     self.updatedAt = [NSDate dateWithTimeIntervalSinceNow:0];
+    
+    return [[ARDatabaseManager sharedInstance] saveRecord:self];
+    /*
     const char *sql = [self sqlOnSave];
     if(NULL != sql){
         NSNumber *tmpId = [[ARDatabaseManager sharedInstance] 
@@ -487,6 +490,7 @@ static NSString *registerHasManyThrough = @"_ar_registerHasManyThrough";
         return YES;
     }
     return NO;
+     */
 }
 
 - (BOOL)update {

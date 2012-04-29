@@ -7,8 +7,8 @@
 //
 
 typedef enum {
-    ARDataTypeInteger,  //  integer
-    ARDataTypeFloat,    //  real
-    ARDataTypeString,   //  text
-    ARDataTypeBlob      //  blob
+    ARDataTypeInteger   = 0,    //  integer
+    ARDataTypeFloat     = 1,    //  real
+    ARDataTypeString    = 2,    //  text
+    ARDataTypeBlob      = 3     //  blob
 } ARDataType;
