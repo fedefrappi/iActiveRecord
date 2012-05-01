@@ -10,6 +10,7 @@
 #import <sqlite3.h>
 
 @class ActiveRecord;
+@class ARSQLBuilder;
 
 @interface ARDatabaseManager : NSObject
 {
@@ -58,6 +59,7 @@
 //  or 0 if save failure
 - (NSInteger)saveRecord:(ActiveRecord *)aRecord;
 
+- (sqlite3_stmt *)statementFromBuilder:(ARSQLBuilder *)aBuilder;
 
 @end
  

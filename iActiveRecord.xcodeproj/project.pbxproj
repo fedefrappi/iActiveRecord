@@ -57,6 +57,10 @@
 		CA3D17BA151926B700FA3F3C /* Cedar-iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA3D17B8151926B700FA3F3C /* Cedar-iOS.framework */; };
 		CA3D18061519D5FA00FA3F3C /* ARLazyFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = CA3D18051519D5FA00FA3F3C /* ARLazyFetcher.m */; };
 		CA3D18071519D5FA00FA3F3C /* ARLazyFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = CA3D18051519D5FA00FA3F3C /* ARLazyFetcher.m */; };
+		CA485F791550279400C37CD8 /* ARSchemaManager.h in Headers */ = {isa = PBXBuildFile; fileRef = CA485F771550279400C37CD8 /* ARSchemaManager.h */; };
+		CA485F7A1550279400C37CD8 /* ARSchemaManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CA485F781550279400C37CD8 /* ARSchemaManager.m */; };
+		CA485F7B1550279400C37CD8 /* ARSchemaManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CA485F781550279400C37CD8 /* ARSchemaManager.m */; };
+		CA485F7C1550279400C37CD8 /* ARSchemaManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CA485F781550279400C37CD8 /* ARSchemaManager.m */; };
 		CA523D401535F50500565E02 /* NSDate+isPresented.m in Sources */ = {isa = PBXBuildFile; fileRef = CA523D3F1535F50500565E02 /* NSDate+isPresented.m */; };
 		CA523D441535F56100565E02 /* NSData+isPresented.h in Headers */ = {isa = PBXBuildFile; fileRef = CA523D421535F56100565E02 /* NSData+isPresented.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CA523D451535F56100565E02 /* NSData+isPresented.m in Sources */ = {isa = PBXBuildFile; fileRef = CA523D431535F56100565E02 /* NSData+isPresented.m */; };
@@ -122,6 +126,10 @@
 		CA9EC7A2154D5B4400A9DD4D /* ARColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9EC7A0154D5B4400A9DD4D /* ARColumn.m */; };
 		CA9EC7A3154D5B4400A9DD4D /* ARColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9EC7A0154D5B4400A9DD4D /* ARColumn.m */; };
 		CA9EC7A4154D5B4400A9DD4D /* ARColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9EC7A0154D5B4400A9DD4D /* ARColumn.m */; };
+		CAAE1C881550334100B489C3 /* ARSQLBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = CAAE1C861550334100B489C3 /* ARSQLBuilder.h */; };
+		CAAE1C891550334100B489C3 /* ARSQLBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = CAAE1C871550334100B489C3 /* ARSQLBuilder.m */; };
+		CAAE1C8A1550334100B489C3 /* ARSQLBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = CAAE1C871550334100B489C3 /* ARSQLBuilder.m */; };
+		CAAE1C8B1550334100B489C3 /* ARSQLBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = CAAE1C871550334100B489C3 /* ARSQLBuilder.m */; };
 		CAAE32BA15244C330080447D /* NSDate+sqlRepresentation.h in Headers */ = {isa = PBXBuildFile; fileRef = CAAE32B815244C330080447D /* NSDate+sqlRepresentation.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		CAAE32BB15244C330080447D /* NSDate+sqlRepresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = CAAE32B915244C330080447D /* NSDate+sqlRepresentation.m */; };
 		CAAE32BC15244C330080447D /* NSDate+sqlRepresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = CAAE32B915244C330080447D /* NSDate+sqlRepresentation.m */; };
@@ -286,6 +294,8 @@
 		CA3D18081519D61F00FA3F3C /* ARLazyFetcherSpecs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARLazyFetcherSpecs.h; sourceTree = "<group>"; };
 		CA3D18091519D63300FA3F3C /* FooSpec.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FooSpec.h; sourceTree = "<group>"; };
 		CA485F5F154FF36C00C37CD8 /* ColumnSpecs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColumnSpecs.h; sourceTree = "<group>"; };
+		CA485F771550279400C37CD8 /* ARSchemaManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARSchemaManager.h; sourceTree = "<group>"; };
+		CA485F781550279400C37CD8 /* ARSchemaManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARSchemaManager.m; sourceTree = "<group>"; };
 		CA523D3E1535F50500565E02 /* NSDate+isPresented.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+isPresented.h"; sourceTree = "<group>"; };
 		CA523D3F1535F50500565E02 /* NSDate+isPresented.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+isPresented.m"; sourceTree = "<group>"; };
 		CA523D421535F56100565E02 /* NSData+isPresented.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+isPresented.h"; sourceTree = "<group>"; };
@@ -319,6 +329,8 @@
 		CA9EC79F154D5B4400A9DD4D /* ARColumn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARColumn.h; sourceTree = "<group>"; };
 		CA9EC7A0154D5B4400A9DD4D /* ARColumn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARColumn.m; sourceTree = "<group>"; };
 		CA9EC7A5154D5C9500A9DD4D /* ARColumn_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARColumn_Private.h; sourceTree = "<group>"; };
+		CAAE1C861550334100B489C3 /* ARSQLBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARSQLBuilder.h; sourceTree = "<group>"; };
+		CAAE1C871550334100B489C3 /* ARSQLBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARSQLBuilder.m; sourceTree = "<group>"; };
 		CAAE32B815244C330080447D /* NSDate+sqlRepresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+sqlRepresentation.h"; sourceTree = "<group>"; };
 		CAAE32B915244C330080447D /* NSDate+sqlRepresentation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+sqlRepresentation.m"; sourceTree = "<group>"; };
 		CAAE32E91525F2480080447D /* ARValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARValidator.h; sourceTree = "<group>"; };
@@ -576,6 +588,8 @@
 		25998EDC14BC19E200CA2490 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				CAAE1C841550332500B489C3 /* ARSQLBuilder */,
+				CA485F751550274F00C37CD8 /* ARColumnManager */,
 				CA485F35154D6FD200C37CD8 /* ARDatabaseManager */,
 				CA9EC79E154D5B2300A9DD4D /* ARColumn */,
 				CA6EEA15154C8C7800B07AB4 /* Enums */,
@@ -723,6 +737,15 @@
 			name = ARDatabaseManager;
 			sourceTree = "<group>";
 		};
+		CA485F751550274F00C37CD8 /* ARColumnManager */ = {
+			isa = PBXGroup;
+			children = (
+				CA485F771550279400C37CD8 /* ARSchemaManager.h */,
+				CA485F781550279400C37CD8 /* ARSchemaManager.m */,
+			);
+			name = ARColumnManager;
+			sourceTree = "<group>";
+		};
 		CA62C30A151E0AB800E54276 /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -851,6 +874,15 @@
 				CA9EC7A0154D5B4400A9DD4D /* ARColumn.m */,
 			);
 			name = ARColumn;
+			sourceTree = "<group>";
+		};
+		CAAE1C841550332500B489C3 /* ARSQLBuilder */ = {
+			isa = PBXGroup;
+			children = (
+				CAAE1C861550334100B489C3 /* ARSQLBuilder.h */,
+				CAAE1C871550334100B489C3 /* ARSQLBuilder.m */,
+			);
+			name = ARSQLBuilder;
 			sourceTree = "<group>";
 		};
 		CAAE32B515244BEB0080447D /* NSDate */ = {
@@ -996,6 +1028,8 @@
 				CADA6AF7154473E600CCE41D /* ARBaseRelationship.h in Headers */,
 				CA9EC799154D550900A9DD4D /* Car.h in Headers */,
 				CA9EC7A1154D5B4400A9DD4D /* ARColumn.h in Headers */,
+				CA485F791550279400C37CD8 /* ARSchemaManager.h in Headers */,
+				CAAE1C881550334100B489C3 /* ARSQLBuilder.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1180,6 +1214,8 @@
 				CADA6AF9154473E600CCE41D /* ARBaseRelationship.m in Sources */,
 				CA9EC79B154D550900A9DD4D /* Car.m in Sources */,
 				CA9EC7A3154D5B4400A9DD4D /* ARColumn.m in Sources */,
+				CA485F7B1550279400C37CD8 /* ARSchemaManager.m in Sources */,
+				CAAE1C8A1550334100B489C3 /* ARSQLBuilder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1234,6 +1270,8 @@
 				CADA6AF8154473E600CCE41D /* ARBaseRelationship.m in Sources */,
 				CA9EC79A154D550900A9DD4D /* Car.m in Sources */,
 				CA9EC7A2154D5B4400A9DD4D /* ARColumn.m in Sources */,
+				CA485F7A1550279400C37CD8 /* ARSchemaManager.m in Sources */,
+				CAAE1C891550334100B489C3 /* ARSQLBuilder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1275,6 +1313,8 @@
 				CADA6AFA154473E600CCE41D /* ARBaseRelationship.m in Sources */,
 				CA9EC79C154D550900A9DD4D /* Car.m in Sources */,
 				CA9EC7A4154D5B4400A9DD4D /* ARColumn.m in Sources */,
+				CA485F7C1550279400C37CD8 /* ARSchemaManager.m in Sources */,
+				CAAE1C8B1550334100B489C3 /* ARSQLBuilder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

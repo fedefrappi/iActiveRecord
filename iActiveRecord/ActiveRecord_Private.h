@@ -93,13 +93,13 @@
 
 #pragma mark - New Logic
 
-+ (void)registerColumns;
 - (void)registerColumnObservers;
 
 + (NSArray *)columns;
 - (NSArray *)columns;
 
-//- (NSArray *)updatedColumns;
++ (NSArray *)ignoredFields;
+
 - (ARColumn *)columnNamed:(NSString *)aColumnName;
 
 @end

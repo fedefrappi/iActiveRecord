@@ -39,6 +39,8 @@
 #import "ARColumn.h"
 #import "ARColumn_Private.h"
 
+#import "ARSchemaManager.h"
+
 static NSMutableDictionary *relationshipsDictionary = nil;
 static NSMutableDictionary *columnsDictionary = nil;
 
@@ -56,6 +58,8 @@ migration_helper
 + (void)initialize {
     [super initialize];    
     [self initIgnoredFields];
+//    [self registerColumns];
+    [[ARSchemaManager sharedInstance] registerSchemeForRecord:self];
     if([self conformsToProtocol:@protocol(ARValidatableProtocol)]){
         [self performSelector:@selector(initValidations)];
     }
@@ -184,9 +188,9 @@ static NSString *registerHasManyThrough = @"_ar_registerHasManyThrough";
     self = [super init];
     if(nil != self){
         self.updatedColumns = [NSMutableArray new];
+        [self registerColumnObservers]; 
         self.updatedAt = [NSDate dateWithTimeIntervalSinceNow:0];
         self.createdAt = [NSDate dateWithTimeIntervalSinceNow:0];
-        [self registerColumnObservers];
     }
     return self;    
 }
@@ -228,13 +232,16 @@ static NSString *registerHasManyThrough = @"_ar_registerHasManyThrough";
 }*/
 
 + (void)initIgnoredFields {
+    if(ignoredFields == nil){
+        ignoredFields = [NSMutableSet new];
+    }
     [self ignoreField:@"updatedColumns"];
 }
 
 + (void)ignoreField:(NSString *)aField {
-    if(nil == ignoredFields){
-        ignoredFields = [[NSMutableSet alloc] init];
-    }
+//    if(nil == ignoredFields){
+//        ignoredFields = [[NSMutableSet alloc] init];
+//    }
     [ignoredFields addObject:aField];
 }
 
@@ -474,9 +481,9 @@ static NSString *registerHasManyThrough = @"_ar_registerHasManyThrough";
     return [errors allObjects];
 }
 
-- (NSArray *)changedFields {
-    return [changedFields allObjects];
-}
+//- (NSArray *)changedFields {
+//    return [changedFields allObjects];
+//}
 
 #pragma mark - Save/Update
 
@@ -488,20 +495,7 @@ static NSString *registerHasManyThrough = @"_ar_registerHasManyThrough";
         return NO;
     }
     self.updatedAt = [NSDate dateWithTimeIntervalSinceNow:0];
-    
     return [[ARDatabaseManager sharedInstance] saveRecord:self];
-    /*
-    const char *sql = [self sqlOnSave];
-    if(NULL != sql){
-        NSNumber *tmpId = [[ARDatabaseManager sharedInstance] 
-                          insertRecord:[[self class] tableName] 
-                           withSqlQuery:sql];
-        self.id = self.id == nil ? tmpId : self.id;
-        isNew = NO;
-        return YES;
-    }
-    return NO;
-     */
 }
 
 - (BOOL)update {
@@ -688,41 +682,13 @@ static NSString *registerHasManyThrough = @"_ar_registerHasManyThrough";
     }
 }
 
-+ (void)registerColumns {
-    if(columnsDictionary == nil){
-        columnsDictionary = [NSMutableDictionary new];
-    }
-    Class ActiveRecordClass = NSClassFromString(@"NSObject");
-    id CurrentClass = self;
-    while(nil != CurrentClass && CurrentClass != ActiveRecordClass){
-        unsigned int outCount, i;
-        objc_property_t *properties = class_copyPropertyList(CurrentClass, &outCount);
-        for (i = 0; i < outCount; i++) {
-            ARColumn *column = [[ARColumn alloc] initWithProperty:properties[i]];
-            if(![ignoredFields containsObject:column.columnName]){
-                [columnsDictionary addValue:column
-                               toArrayNamed:[self recordName]];
-            }
-            [column release];
-        }
-        CurrentClass = class_getSuperclass(CurrentClass);
-    }    
-}
-
 + (NSArray *)columns {
-    if (columnsDictionary == nil) {
-        [self registerColumns];
-    }
-    return [columnsDictionary objectForKey:[self recordName]];
+    return [[ARSchemaManager sharedInstance] columnsForRecord:self];
 }
 
 - (NSArray *)columns {
     return [[self class] columns];
 }
-
-//- (NSArray *)updatedColumns {
-//    return [updatedColumns allObjects];
-//}
 
 - (ARColumn *)columnNamed:(NSString *)aColumnName {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"columnName = %@", aColumnName];
@@ -730,12 +696,14 @@ static NSString *registerHasManyThrough = @"_ar_registerHasManyThrough";
 }
 
 - (void)registerColumnObservers {
-    for(ARColumn *column in [self columns]){
+    NSArray *columns = [[self columns] copy];
+    for(ARColumn *column in columns){
         [self addObserver:self
                forKeyPath:column.columnName
                   options:0
                   context:nil];
     }
+    [columns release];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath 
@@ -748,6 +716,10 @@ static NSString *registerHasManyThrough = @"_ar_registerHasManyThrough";
 
 - (NSArray *)updatedFields {
     return self.updatedColumns;
+}
+
++ (NSArray *)ignoredFields {
+    return [ignoredFields allObjects];
 }
 
 @end
