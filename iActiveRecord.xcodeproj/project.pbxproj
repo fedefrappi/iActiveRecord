@@ -285,6 +285,7 @@
 		CA3D18051519D5FA00FA3F3C /* ARLazyFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARLazyFetcher.m; sourceTree = "<group>"; };
 		CA3D18081519D61F00FA3F3C /* ARLazyFetcherSpecs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARLazyFetcherSpecs.h; sourceTree = "<group>"; };
 		CA3D18091519D63300FA3F3C /* FooSpec.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FooSpec.h; sourceTree = "<group>"; };
+		CA485F5F154FF36C00C37CD8 /* ColumnSpecs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColumnSpecs.h; sourceTree = "<group>"; };
 		CA523D3E1535F50500565E02 /* NSDate+isPresented.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+isPresented.h"; sourceTree = "<group>"; };
 		CA523D3F1535F50500565E02 /* NSDate+isPresented.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+isPresented.m"; sourceTree = "<group>"; };
 		CA523D421535F56100565E02 /* NSData+isPresented.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+isPresented.h"; sourceTree = "<group>"; };
@@ -470,6 +471,7 @@
 				CA8D9EDF152EC5EB005F9073 /* ARJoinSpecs.h */,
 				CAB56AE8153E69B20062DC9E /* NSDataSpecs.h */,
 				CAAF1EF3154D534A009EB399 /* SaveLoadSpecs.h */,
+				CA485F5F154FF36C00C37CD8 /* ColumnSpecs.h */,
 			);
 			name = Specs;
 			sourceTree = "<group>";

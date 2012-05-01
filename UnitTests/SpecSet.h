@@ -7,6 +7,7 @@
 //
 
 #import "SaveLoadSpecs.h"
+#import "ColumnSpecs.h"
 /*
 #import "DependencySpecs.h"
 #import "FooSpec.h"

@@ -10,6 +10,6 @@
 
 @interface Car : ActiveRecord
 
-@property (nonatomic, copy) NSString *model; 
+@property (nonatomic, retain) NSString *model; 
 
 @end
