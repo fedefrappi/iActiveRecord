@@ -22,9 +22,6 @@
 @property (nonatomic, retain) NSMutableString *sqlString;
 @property (nonatomic, retain) NSMutableArray *valuesArray;
 
-- (NSString *)columns:(ActiveRecord *)aRecord;
-- (NSString *)columnsValues:(ActiveRecord *)aRecord;
-
 @end
 
 @implementation ARSQLBuilder

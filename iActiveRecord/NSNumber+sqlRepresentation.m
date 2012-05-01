@@ -22,6 +22,10 @@
     return sqlData;
 }
 
+- (id)sqlData {
+    return self;
+}
+
 + (ARDataType)dataType {
     return ARDataTypeInteger;
 }

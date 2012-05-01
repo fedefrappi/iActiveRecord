@@ -15,6 +15,8 @@
 
 + (id)fromSql:(id)sqlData;
 - (id)toSql;
+
+- (id)sqlData;
 + (ARDataType)dataType;
 
 @end

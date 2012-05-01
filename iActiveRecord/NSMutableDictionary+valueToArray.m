@@ -21,6 +21,9 @@
         [self setValue:anArray
                 forKey:anArrayName];
     }
+    if(aValue == nil){
+        aValue = [NSNull null];
+    }
     [anArray addObject:aValue];
 }
 

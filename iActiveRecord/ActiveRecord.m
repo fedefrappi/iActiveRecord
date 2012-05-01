@@ -42,7 +42,6 @@
 #import "ARSchemaManager.h"
 
 static NSMutableDictionary *relationshipsDictionary = nil;
-static NSMutableDictionary *columnsDictionary = nil;
 
 @implementation ActiveRecord
 
@@ -196,6 +195,8 @@ static NSString *registerHasManyThrough = @"_ar_registerHasManyThrough";
 }
 
 - (void)dealloc {
+    [self removeColumnObservers];
+    self.updatedAt = self.createdAt = nil;
     self.id = nil;
     [errors release];
     [changedFields release];
@@ -210,26 +211,9 @@ static NSString *registerHasManyThrough = @"_ar_registerHasManyThrough";
 #pragma mark - ObserveChanges
 
 - (void)didChangeField:(NSString *)aField {
-//    if([ignoredFields containsObject:aField]){
-//        return;
-//    }
-    //if(nil == changedFields){
-      ///  changedFields = [NSMutableSet new];
-//    }//
-//    [changedFields addObject:aField];
-    
     ARColumn *column = [self columnNamed:aField];
     [self.updatedColumns addObject:column];
 }
-
-/*- (void)setValue:(id)value forKey:(NSString *)key {
-    NSLog(@"%@ %@", value, key);
-    if([[self valueForKey:key] isEqual:value]){
-        return;
-    }
-    [self didChangeField:key];
-    [super setValue:value forKey:key];
-}*/
 
 + (void)initIgnoredFields {
     if(ignoredFields == nil){
@@ -239,9 +223,6 @@ static NSString *registerHasManyThrough = @"_ar_registerHasManyThrough";
 }
 
 + (void)ignoreField:(NSString *)aField {
-//    if(nil == ignoredFields){
-//        ignoredFields = [[NSMutableSet alloc] init];
-//    }
     [ignoredFields addObject:aField];
 }
 
@@ -305,58 +286,6 @@ static NSString *registerHasManyThrough = @"_ar_registerHasManyThrough";
                            @"delete from %@ where id = %@", 
                            [[self recordName] quotedString], 
                            self.id];
-    return [sqlString UTF8String];
-}
-
-- (const char *)sqlOnSave {
-    NSArray *properties = [[self class] tableFields];
-    if([properties count] == 0){
-        return NULL;
-    }
-    
-    ARObjectProperty *property = nil;
-    NSMutableArray *existedProperties = [NSMutableArray new];
-    for(property in properties){
-        id value = [self valueForKey:property.propertyName];
-        if(nil != value){
-            [existedProperties addObject:property];
-        }
-    }
-    if([existedProperties count] == 0){
-        [existedProperties release];
-        return NULL;
-    }
-    
-    NSMutableString *sqlString = [NSMutableString stringWithFormat:@"INSERT INTO %@(", 
-                                  [[self recordName] quotedString]];
-    NSMutableString *sqlValues = [NSMutableString stringWithFormat:@" VALUES("];
-    
-    int index = 0;
-    property = [existedProperties objectAtIndex:index++];
-    id propertyValue = [self valueForKey:property.propertyName];
-    if(propertyValue == nil){
-        propertyValue = @"";
-    }
-    [sqlString appendFormat:@"%@", [property.propertyName quotedString]];
-    [sqlValues appendFormat:@"%@", [[[propertyValue performSelector:@selector(toSql)] 
-                                     stringWithEscapedQuote] 
-                                    quotedString]];
-    
-    for(;index < [existedProperties count];index++){
-        property = [existedProperties objectAtIndex:index];
-        id propertyValue = [self valueForKey:property.propertyName];
-        if(propertyValue == nil){
-            propertyValue = @"";
-        }
-        [sqlString appendFormat:@", %@", [property.propertyName quotedString]];
-        [sqlValues appendFormat:@", %@", [[[propertyValue performSelector:@selector(toSql)] 
-                                           stringWithEscapedQuote] 
-                                          quotedString]];
-    }
-    [existedProperties release];
-    [sqlValues appendString:@") "];
-    [sqlString appendString:@") "];
-    [sqlString appendString:sqlValues];
     return [sqlString UTF8String];
 }
 
@@ -704,6 +633,15 @@ static NSString *registerHasManyThrough = @"_ar_registerHasManyThrough";
                   context:nil];
     }
     [columns release];
+}
+
+- (void)removeColumnObservers {
+    NSArray *columns = [[self columns] copy];
+    for(ARColumn *column in columns){
+        [self removeObserver:self
+                  forKeyPath:column.columnName];
+    }
+    [columns release]; 
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath 

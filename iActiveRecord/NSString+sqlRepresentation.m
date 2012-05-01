@@ -22,6 +22,10 @@
     return "text";
 }
 
+- (id)sqlData {
+    return self;
+}
+
 + (ARDataType)dataType {
     return ARDataTypeString;
 }

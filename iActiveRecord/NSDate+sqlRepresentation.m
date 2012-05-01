@@ -24,6 +24,12 @@
     return "INTEGER";
 }
 
+
+- (id)sqlData {
+    NSTimeInterval time = [self timeIntervalSince1970];
+    return [NSDecimalNumber numberWithFloat:time];
+}
+
 + (ARDataType)dataType {
     return ARDataTypeFloat;
 }

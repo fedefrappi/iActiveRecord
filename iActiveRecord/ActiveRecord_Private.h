@@ -31,13 +31,11 @@
 
 #pragma mark - SQLQueries
 
-+ (const char *)sqlOnCreate;
 + (const char *)sqlOnDeleteAll;
 + (const char *)sqlOnAddColumn:(NSString *)aColumn;
 - (const char *)sqlOnDelete;
 - (const char *)sqlOnSave;
 - (const char *)sqlOnUpdate;
-
 
 #pragma mark - ObserveChanges
 
@@ -94,6 +92,7 @@
 #pragma mark - New Logic
 
 - (void)registerColumnObservers;
+- (void)removeColumnObservers;
 
 + (NSArray *)columns;
 - (NSArray *)columns;

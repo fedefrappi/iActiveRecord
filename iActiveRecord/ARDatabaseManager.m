@@ -406,14 +406,114 @@ static BOOL migrationsEnabled = YES;
 
 - (NSInteger)saveRecord:(ActiveRecord *)aRecord {
     ARSQLBuilder *builder = [ARSQLBuilder builderWithRecord:aRecord];
-    
-    return 0;
+    [builder buildForCreate];
+    sqlite3_stmt *statement = [self statementFromBuilder:builder];
+    if(sqlite3_step(statement) != SQLITE_DONE){
+        NSLog(@"Cannot execute step %s", sqlite3_errmsg(database));
+        return 0;
+    }
+    return sqlite3_last_insert_rowid(database);
 }
 
 - (sqlite3_stmt *)statementFromBuilder:(ARSQLBuilder *)aBuilder {
+    const char *query = [aBuilder.sql UTF8String];
+    sqlite3_stmt *statement = nil;
+    int result = sqlite3_prepare_v2(database, query, -1, &statement, NULL);
+    if(result != SQLITE_OK){
+        NSLog(@"Could not prepare: %s", sqlite3_errmsg(database));
+        NSLog(@"%s", query);
+    }
+    NSInteger index = 1;
     
+    for(id value in aBuilder.values){
+        Class ValueClass = [value class];
+        ARDataType dataType = (ARDataType)[ValueClass performSelector:@selector(dataType)];
+        NSString *bindSelector = [NSString stringWithFormat:
+                                  @"bind_%s:columnData:columnIndex:", 
+                                  kDataTypes[dataType]];
+        if([value isKindOfClass:[NSNull class]]){
+            [self bind_null:statement 
+                columnIndex:index++];
+        }else{
+            objc_msgSend(self, 
+                         sel_getUid([bindSelector UTF8String]),
+                         statement, 
+                         [value performSelector:@selector(sqlData)],
+                         index++);
+        }
+    }
+    
+    return statement;
 }
 
 #pragma mark - Bindings
+
+
+- (BOOL)bind_blob:(sqlite3_stmt *)stmt 
+       columnData:(NSData *)columnData 
+      columnIndex:(NSInteger)index 
+{
+    int result = sqlite3_bind_blob(stmt, 
+                                   index, 
+                                   [columnData bytes],
+                                   [columnData length], 
+                                   nil);
+    if(result != SQLITE_OK){
+        NSLog(@"Could not bind blob: %s", sqlite3_errmsg(database));
+        NSLog(@"%@", columnData);
+    }
+    return result == SQLITE_OK;
+}
+
+- (BOOL)bind_text:(sqlite3_stmt *)stmt 
+       columnData:(NSString *)columnData 
+      columnIndex:(NSInteger)index 
+{
+    int result = sqlite3_bind_text(stmt,
+                                   index,
+                                   [columnData UTF8String],
+                                   -1,
+                                   SQLITE_TRANSIENT);
+    if(result != SQLITE_OK){
+        NSLog(@"Could not bind text: %s", sqlite3_errmsg(database));
+        NSLog(@"%@", columnData);
+    }
+    return result == SQLITE_OK;
+}
+
+- (BOOL)bind_integer:(sqlite3_stmt *)stmt 
+      columnData:(NSNumber *)columnData 
+     columnIndex:(NSInteger)index 
+{
+    int result = sqlite3_bind_int(stmt, index, columnData.intValue);
+    if(result != SQLITE_OK){
+        NSLog(@"Could not bind int: %s", sqlite3_errmsg(database));
+        NSLog(@"%@", columnData);
+    }
+    return result == SQLITE_OK;
+}
+
+- (BOOL)bind_real:(sqlite3_stmt *)stmt 
+         columnData:(NSDecimalNumber *)columnData 
+        columnIndex:(NSInteger)index 
+{
+    int result = sqlite3_bind_double(stmt, index, columnData.doubleValue);
+    if(result != SQLITE_OK){
+        NSLog(@"Could not bind double: %s", sqlite3_errmsg(database));
+        NSLog(@"%@", columnData);
+    }
+    return result == SQLITE_OK;
+}
+
+- (BOOL)bind_null:(sqlite3_stmt *)stmt 
+      columnIndex:(NSInteger)index 
+{
+    int result = sqlite3_bind_null(stmt, index);
+    if(result != SQLITE_OK){
+        NSLog(@"Could not bind null: %s", sqlite3_errmsg(database));
+    }
+    
+    return result == SQLITE_OK;
+}
 
 @end

@@ -14,6 +14,8 @@
 + (const char *)sqlType;
 - (id)toSql;
 + (id)fromSql:(id)sqlData;
+
+- (id)sqlData;
 + (ARDataType)dataType;
 
 @end

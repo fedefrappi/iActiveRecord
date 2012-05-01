@@ -24,6 +24,11 @@
     return "blob";
 }
 
+
+- (id)sqlData {
+    return self;
+}
+
 + (ARDataType)dataType {
     return ARDataTypeBlob;
 }
