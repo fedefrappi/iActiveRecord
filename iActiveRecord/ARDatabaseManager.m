@@ -440,7 +440,6 @@ static BOOL migrationsEnabled = YES;
                          [value performSelector:@selector(sqlData)],
                          index++);
     }
-    
     return statement;
 }
 

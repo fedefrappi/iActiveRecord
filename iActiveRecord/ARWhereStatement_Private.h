@@ -14,6 +14,9 @@
     NSString *statement;
 }
 
+@property (nonatomic, retain) NSString *field;
+@property (nonatomic, retain) NSMutableArray *values;
+
 + (ARWhereStatement *)statement:(NSString *)aStmt;
 + (ARWhereStatement *)statementForField:(NSString *)aField 
                               fromArray:(NSArray *)aValues 

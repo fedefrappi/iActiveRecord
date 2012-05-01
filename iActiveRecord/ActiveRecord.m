@@ -620,7 +620,6 @@ static NSString *registerHasManyThrough = @"_ar_registerHasManyThrough";
 - (void)removeColumnObservers {
     NSArray *columns = [[self columns] copy];
     for(ARColumn *column in columns){
-        NSLog(@"Unregister %@", column);
         [self removeObserver:self
                   forKeyPath:column.columnName];
     }

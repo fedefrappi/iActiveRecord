@@ -597,7 +597,6 @@
 				CA6EEA0D154C8AFF00B07AB4 /* ARWhereStatement */,
 				CA6EEA0B154C88C200B07AB4 /* Classes */,
 				CAAE33731528A6350080447D /* UnicodeSupport */,
-				CA3D18021519D56A00FA3F3C /* Managers */,
 				CA3D18001519D55300FA3F3C /* Helpers */,
 				CABB90991520DA4300E8D082 /* Relationships */,
 				CA0DC410152389B300C8E75D /* Validations */,
@@ -717,13 +716,6 @@
 			name = Helpers;
 			sourceTree = "<group>";
 		};
-		CA3D18021519D56A00FA3F3C /* Managers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Managers;
-			sourceTree = "<group>";
-		};
 		CA485F35154D6FD200C37CD8 /* ARDatabaseManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -790,9 +782,9 @@
 		CA6EEA0D154C8AFF00B07AB4 /* ARWhereStatement */ = {
 			isa = PBXGroup;
 			children = (
+				CA6EEA0E154C8B1F00B07AB4 /* ARWhereStatement_Private.h */,
 				CAAF5E23151CAC58004C4329 /* ARWhereStatement.h */,
 				CAAF5E24151CAC58004C4329 /* ARWhereStatement.m */,
-				CA6EEA0E154C8B1F00B07AB4 /* ARWhereStatement_Private.h */,
 			);
 			name = ARWhereStatement;
 			sourceTree = "<group>";

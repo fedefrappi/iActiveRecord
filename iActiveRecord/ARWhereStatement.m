@@ -11,6 +11,9 @@
 
 @implementation ARWhereStatement
 
+@synthesize field;
+@synthesize values;
+
 #pragma mark - private
 
 + (ARWhereStatement *)statement:(NSString *)aStmt {
@@ -23,16 +26,16 @@
 {
     NSMutableArray *sqlValues = [NSMutableArray arrayWithCapacity:aValues.count];
     for(id value in aValues){
-        [sqlValues addObject:[[[value performSelector:@selector(toSql)] 
-                               stringWithEscapedQuote] 
-                              quotedString]];
+        [sqlValues addObject:@"?"];
     }
     NSString *values = [sqlValues componentsJoinedByString:@" , "];
     NSString *stmt = [NSString stringWithFormat:@" %@ %@ (%@)", 
                       aField, 
                       anOperation,
                       values];
-    return [ARWhereStatement statement:stmt];
+    ARWhereStatement *statement = [ARWhereStatement statement:stmt];
+    [statement.values addObjectsFromArray:aValues];
+    return statement;
 }
 
 #pragma mark - public
@@ -41,6 +44,7 @@
     self = [super init];
     if(nil != self){
         statement = [aStatement copy];
+        self.values = [NSMutableArray array];
     }
     return self;
 }
@@ -52,12 +56,11 @@
 
 + (ARWhereStatement *)whereField:(NSString *)aField equalToValue:(id)aValue {
     NSString *stmt = [NSString stringWithFormat:
-                      @" %@ = %@ ",
-                      [aField quotedString],
-                      [[[aValue performSelector:@selector(toSql)] 
-                        stringWithEscapedQuote] 
-                       quotedString]];
-    return [ARWhereStatement statement:stmt];
+                      @" '%@' = ? ",
+                      aField];
+    ARWhereStatement *statement = [ARWhereStatement statement:stmt];
+    [statement.values addObject:aValue];
+    return statement;
 }
 
 + (ARWhereStatement *)whereField:(NSString *)aField 
@@ -65,11 +68,12 @@
                             like:(NSString *)aPattern 
 {
     NSString *stmt = [NSString stringWithFormat:
-                      @" %@.%@ LIKE %@ ",
-                      [[aRecord performSelector:@selector(recordName)] quotedString],
-                      [aField quotedString],
-                      [aPattern quotedString]];
-    return [ARWhereStatement statement:stmt];
+                      @" '%@'.'%@' LIKE ? ",
+                      [aRecord performSelector:@selector(recordName)],
+                      aField];
+    ARWhereStatement *statement = [ARWhereStatement statement:stmt];
+    [statement.values addObject:aPattern];
+    return statement;
 }
 
 + (ARWhereStatement *)whereField:(NSString *)aField 
@@ -77,31 +81,31 @@
                          notLike:(NSString *)aPattern
 {
     NSString *stmt = [NSString stringWithFormat:
-                      @" %@.%@ NOT LIKE %@ ",
-                      [[aRecord performSelector:@selector(recordName)] quotedString],
-                      [aField quotedString],
-                      [aPattern quotedString]];
-    return [ARWhereStatement statement:stmt];
+                      @" '%@'.'%@' NOT LIKE ? ",
+                      [aRecord performSelector:@selector(recordName)],
+                      aField];
+    ARWhereStatement *statement = [ARWhereStatement statement:stmt];
+    [statement.values addObject:aPattern];
+    return statement;
 }
 
 + (ARWhereStatement *)whereField:(NSString *)aField notEqualToValue:(id)aValue {
     NSString *stmt = [NSString stringWithFormat:
-                      @" %@ <> %@ ",
-                      [aField quotedString],
-                      [[[aValue performSelector:@selector(toSql)] 
-                        stringWithEscapedQuote]
-                       quotedString]];
-    return [ARWhereStatement statement:stmt];
+                      @" '%@' <> ? ",
+                      aField];
+    ARWhereStatement *statement = [ARWhereStatement statement:stmt];
+    [statement.values addObject:aValue];
+    return statement;
 }
 
 + (ARWhereStatement *)whereField:(NSString *)aField in:(NSArray *)aValues {
-    return [self statementForField:[aField quotedString]
+    return [self statementForField:aField
                          fromArray:aValues
                      withOperation:@"IN"];
 }
 
 + (ARWhereStatement *)whereField:(NSString *)aField notIn:(NSArray *)aValues {
-    return [self statementForField:[aField quotedString]
+    return [self statementForField:aField
                          fromArray:aValues
                      withOperation:@"NOT IN"];
 }
@@ -109,33 +113,31 @@
 + (ARWhereStatement *)whereField:(NSString *)aField ofRecord:(Class)aRecord equalToValue:(id)aValue 
 {
     NSString *stmt = [NSString stringWithFormat:
-                      @" %@.%@ = %@ ",
-                      [[aRecord performSelector:@selector(recordName)] quotedString],
-                      [aField quotedString],
-                      [[[aValue performSelector:@selector(toSql)] 
-                        stringWithEscapedQuote] 
-                       quotedString]];
-    return [ARWhereStatement statement:stmt];
+                      @" '%@'.'%@' = ? ",
+                      [aRecord performSelector:@selector(recordName)],
+                      aField];
+    ARWhereStatement *statement = [ARWhereStatement statement:stmt];
+    [statement.values addObject:aValue];
+    return statement;
 }
 
 + (ARWhereStatement *)whereField:(NSString *)aField ofRecord:(Class)aRecord notEqualToValue:(id)aValue 
 {
     NSString *stmt = [NSString stringWithFormat:
-                      @" %@.%@ <> %@ ",
-                      [[aRecord performSelector:@selector(recordName)] quotedString],
-                      [aField quotedString],
-                      [[[aValue performSelector:@selector(toSql)] 
-                        stringWithEscapedQuote] 
-                       quotedString]];
-    return [ARWhereStatement statement:stmt];
+                      @" '%@'.'%@' <> ? ",
+                      [aRecord performSelector:@selector(recordName)],
+                      aField];
+    ARWhereStatement *statement = [ARWhereStatement statement:stmt];
+    [statement.values addObject:aValue];
+    return statement;
 }
 
 + (ARWhereStatement *)whereField:(NSString *)aField ofRecord:(Class)aRecord in:(NSArray *)aValues
 {
     NSString *field = [NSString stringWithFormat:
-                       @"%@.%@", 
-                       [[aRecord performSelector:@selector(recordName)] quotedString],
-                       [aField quotedString]];
+                       @"'%@'.'%@'", 
+                       [aRecord performSelector:@selector(recordName)],
+                       aField];
     return [self statementForField:field
                          fromArray:aValues
                      withOperation:@"IN"];
@@ -144,9 +146,9 @@
 + (ARWhereStatement *)whereField:(NSString *)aField ofRecord:(Class)aRecord notIn:(NSArray *)aValues
 {
     NSString *field = [NSString stringWithFormat:
-                       @"%@.%@", 
-                       [[aRecord performSelector:@selector(recordName)] quotedString],
-                       [aField quotedString]];
+                       @"'%@'.'%@'", 
+                       [aRecord performSelector:@selector(recordName)],
+                       aField];
     return [self statementForField:field
                          fromArray:aValues
                      withOperation:@"NOT IN"];
@@ -162,13 +164,15 @@
                       [aFirstStatement statement],
                       logic,
                       [aSecondStatement statement]];
-    return [ARWhereStatement statement:stmt];
+    ARWhereStatement *statement = [ARWhereStatement statement:stmt];
+    [statement.values addObjectsFromArray:aFirstStatement.values];
+    [statement.values addObjectsFromArray:aSecondStatement.values];
+    return statement;
 }
 
 - (NSString *)statement {
     return statement;
 }
-
 
 @end
 
