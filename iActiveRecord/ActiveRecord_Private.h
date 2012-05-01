@@ -33,8 +33,8 @@
 + (const char *)sqlOnDeleteAll;
 + (const char *)sqlOnAddColumn:(NSString *)aColumn;
 - (const char *)sqlOnDelete;
-- (const char *)sqlOnSave;
-- (const char *)sqlOnUpdate;
+//- (const char *)sqlOnSave;
+//- (const char *)sqlOnUpdate;
 
 #pragma mark - ObserveChanges
 

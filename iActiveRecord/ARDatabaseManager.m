@@ -25,7 +25,6 @@
 static ARDatabaseManager *instance = nil;
 static BOOL useCacheDirectory = YES;
 static NSString *databaseName = DEFAULT_DBNAME;
-
 static BOOL migrationsEnabled = YES;
 
 + (void)registerDatabase:(NSString *)aDatabaseName cachesDirectory:(BOOL)isCache {
@@ -206,19 +205,15 @@ static BOOL migrationsEnabled = YES;
     }
 }
 
-- (NSString *)tableName:(NSString *)modelName {
-    return [[NSString stringWithFormat:@"%@", modelName] quotedString];
-}
-
 - (void)closeConnection {
     sqlite3_close(database);
     sqlite3_unicode_free();
 }
 
-- (NSNumber *)insertRecord:(NSString *)aRecordName withSqlQuery:(const char *)anSqlQuery {
-    [self executeSqlQuery:anSqlQuery];
-    return [self getLastId:aRecordName];
-}
+//- (NSNumber *)insertRecord:(NSString *)aRecordName withSqlQuery:(const char *)anSqlQuery {
+//    [self executeSqlQuery:anSqlQuery];
+//    return [self getLastId:aRecordName];
+//}
 
 - (void)executeSqlQuery:(const char *)anSqlQuery {
     if(SQLITE_OK != sqlite3_exec(database, anSqlQuery, NULL, NULL, NULL)){
@@ -348,12 +343,12 @@ static BOOL migrationsEnabled = YES;
     return resultArray;
 }
 
-- (NSInteger)countOfRecordsWithName:(NSString *)aName {
-    NSString *aSqlRequest = [NSString stringWithFormat:
-                             @"SELECT count(id) FROM %@", 
-                             [self tableName:aName]];
-    return [self functionResult:aSqlRequest];
-}
+//- (NSInteger)countOfRecordsWithName:(NSString *)aName {
+//    NSString *aSqlRequest = [NSString stringWithFormat:
+//                             @"SELECT count(id) FROM %@", 
+//                             [self tableName:aName]];
+//    return [self functionResult:aSqlRequest];
+//}
 
 //- (NSNumber *)getLastId:(NSString *)aRecordName {
 //    NSString *aSqlRequest = [NSString stringWithFormat:@"select MAX(id) from %@", 

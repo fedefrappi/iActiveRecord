@@ -37,18 +37,17 @@
 - (NSArray *)describedTables;
 - (NSArray *)columnsForTable:(NSString *)aTableName;
 
-- (NSString *)tableName:(NSString *)modelName;
+//- (NSString *)tableName:(NSString *)modelName;
 - (NSString *)documentsDirectory;
 - (NSString *)cachesDirectory;
 
 + (id)sharedInstance;
 
-- (NSNumber *)insertRecord:(NSString *)aRecordName withSqlQuery:(const char *)anSqlQuery;
-- (NSNumber *)getLastId:(NSString *)aRecordName;
+//- (NSNumber *)insertRecord:(NSString *)aRecordName withSqlQuery:(const char *)anSqlQuery;
 - (void)executeSqlQuery:(const char *)anSqlQuery;
 - (NSArray *)allRecordsWithName:(NSString *)aName withSql:(NSString *)aSqlRequest;
 - (NSArray *)joinedRecordsWithSql:(NSString *)aSqlRequest;
-- (NSInteger)countOfRecordsWithName:(NSString *)aName;
+//- (NSInteger)countOfRecordsWithName:(NSString *)aName;
 - (NSInteger)functionResult:(NSString *)anSql;
 
 + (void)registerDatabase:(NSString *)aDatabaseName cachesDirectory:(BOOL)isCache;

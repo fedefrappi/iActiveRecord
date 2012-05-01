@@ -423,7 +423,8 @@ static NSString *registerHasManyThrough = @"_ar_registerHasManyThrough";
 }
 
 + (NSInteger)count {
-    return [[ARDatabaseManager sharedInstance] countOfRecordsWithName:[[self class] description]];
+    return [[self lazyFetcher] count];
+//    return [[ARDatabaseManager sharedInstance] countOfRecordsWithName:[[self class] description]];
 }
 
 #pragma mark - Relationships
