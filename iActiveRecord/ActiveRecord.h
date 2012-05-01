@@ -43,6 +43,7 @@ typedef void (^ARTransactionBlock)();
 - (NSArray *)errors;
 - (void)addError:(ARError *)anError;
 - (NSArray *)changedFields;
+- (NSArray *)updatedFields;
 
 + (id)newRecord;
 - (BOOL)save;

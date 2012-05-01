@@ -12,7 +12,6 @@
 #import "ARDatabaseManager.h"
 #import "User.h"
 #import "ARColumn.h"
-#import "ActiveRecord_Private.h"
 
 SPEC_BEGIN(ColumnSpecs)
 
@@ -27,7 +26,7 @@ describe(@"User", ^{
     it(@"should have changed columns", ^{
         User *user = [User newRecord];
         user.name = @"Alex";
-        expect([user changedFields].count).Not.toEqual(0);
+        expect([user updatedFields].count).Not.toEqual(0);
     });
 });
 

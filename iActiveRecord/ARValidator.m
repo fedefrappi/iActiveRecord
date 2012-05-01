@@ -61,9 +61,11 @@
     [validation release];
 }
 
+#warning refactor!!!
+
 - (BOOL)isValidOnSave:(id)aRecord {
     BOOL valid = YES;
-    NSString *className = [aRecord performSelector:@selector(className)];
+    NSString *className = [aRecord performSelector:@selector(recordName)];
     for(int i=0;i<validations.count;i++){
         ARValidation *validation = [[validations allObjects] objectAtIndex:i];
         if([validation.record isEqualToString:className]){
@@ -92,7 +94,7 @@
 
 - (BOOL)isValidOnUpdate:(id)aRecord {
     BOOL valid = YES;
-    NSString *className = [aRecord performSelector:@selector(className)];
+    NSString *className = [aRecord performSelector:@selector(recordName)];
     for(ARValidation *validation in validations){
         if([validation.record isEqualToString:className]){
             if([[aRecord changedFields] containsObject:validation.field]){
@@ -123,10 +125,16 @@
 #pragma mark - Public
 
 + (BOOL)isValidOnSave:(id)aRecord {
+    if(![aRecord conformsToProtocol:@protocol(ARValidatableProtocol)]){
+        return YES;
+    }
     return [[self sharedInstance] isValidOnSave:aRecord];
 }
 
 + (BOOL)isValidOnUpdate:(id)aRecord {
+    if(![aRecord conformsToProtocol:@protocol(ARValidatableProtocol)]){
+        return YES;
+    }
     return [[self sharedInstance] isValidOnUpdate:aRecord];
 }
 

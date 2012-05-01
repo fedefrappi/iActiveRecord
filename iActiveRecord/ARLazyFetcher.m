@@ -156,7 +156,7 @@ static NSString* joinString(ARJoinType type)
             NSString *order = [[orderByConditions valueForKey:key] boolValue] ? @"ASC" : @"DESC";
             [statement appendFormat:
              @" %@.%@ %@ ,", 
-             [[recordClass performSelector:@selector(tableName)] quotedString], 
+             [[recordClass performSelector:@selector(recordName)] quotedString], 
              [key quotedString], 
              order];
         }
@@ -185,9 +185,9 @@ static NSString* joinString(ARJoinType type)
     for(NSString *field in [self fieldsOfRecord:recordClass]){
         fieldname = [NSString stringWithFormat:
                      @"%@.%@ AS '%@#%@'", 
-                     [[recordClass performSelector:@selector(tableName)] quotedString],
+                     [[recordClass performSelector:@selector(recordName)] quotedString],
                      [field quotedString],
-                     [recordClass performSelector:@selector(tableName)],
+                     [recordClass performSelector:@selector(recordName)],
                      field];
         [fields addObject:fieldname];
     }
@@ -195,9 +195,9 @@ static NSString* joinString(ARJoinType type)
     for(NSString *field in [self fieldsOfRecord:joinClass]){
         fieldname = [NSString stringWithFormat:
                      @"%@.%@ AS '%@#%@'", 
-                     [[joinClass performSelector:@selector(tableName)] quotedString],
+                     [[joinClass performSelector:@selector(recordName)] quotedString],
                      [field quotedString],
-                     [joinClass performSelector:@selector(tableName)],
+                     [joinClass performSelector:@selector(recordName)],
                      field];
         [fields addObject:fieldname];
     }
@@ -205,7 +205,7 @@ static NSString* joinString(ARJoinType type)
     [statement appendFormat:
      @"%@ FROM %@ ", 
      [fields componentsJoinedByString:@","], 
-     [[recordClass performSelector:@selector(tableName)] quotedString]];
+     [[recordClass performSelector:@selector(recordName)] quotedString]];
     return statement;
 }
 
@@ -216,14 +216,14 @@ static NSString* joinString(ARJoinType type)
     for(NSString *field in [self recordFields]){
         fieldname = [NSString stringWithFormat:
                      @"%@.%@", 
-                     [[recordClass performSelector:@selector(tableName)] quotedString],
+                     [[recordClass performSelector:@selector(recordName)] quotedString],
                      [field quotedString]];
         [fields addObject:fieldname];
     }
     [statement appendFormat:
      @"%@ FROM %@ ", 
      [fields componentsJoinedByString:@","], 
-     [[recordClass performSelector:@selector(tableName)] quotedString]];
+     [[recordClass performSelector:@selector(recordName)] quotedString]];
     return statement;
 }
 
@@ -231,8 +231,8 @@ static NSString* joinString(ARJoinType type)
     NSMutableString *statement = [NSMutableString string];
     if (useJoin){
         NSString *join = joinString(joinType);
-        NSString *joinTable = [joinClass performSelector:@selector(tableName)];
-        NSString *selfTable = [recordClass performSelector:@selector(tableName)];
+        NSString *joinTable = [joinClass performSelector:@selector(recordName)];
+        NSString *selfTable = [recordClass performSelector:@selector(recordName)];
         [statement appendFormat:
          @" %@ JOIN %@ ON %@.%@ = %@.%@ ", 
          join, 
@@ -499,7 +499,7 @@ static NSString* joinString(ARJoinType type)
     
     NSString *select = [NSString stringWithFormat:
                         @"SELECT count(*) FROM %@ ", 
-                        [[recordClass performSelector:@selector(tableName)] quotedString]];
+                        [[recordClass performSelector:@selector(recordName)] quotedString]];
     NSString *where = [self createWhereStatement];
     NSString *join = [self createJoinStatement];
     [sql appendString:select];

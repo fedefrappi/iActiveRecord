@@ -30,8 +30,20 @@
 - (NSString *)description {
     return [NSString stringWithFormat:
             @"Column: %@ %@", 
-            self.columnName, 
-            NSStringFromClass(self.columnClass)];
+            NSStringFromClass(self.columnClass),
+            self.columnName];
+}
+
+- (BOOL)isEqual:(id)object {
+    ARColumn *right = (ARColumn *)object;
+    BOOL result = YES;
+    if(![self.columnName isEqualToString:right.columnName]){
+        result = NO;
+    }
+    if(self.columnClass != right.columnClass){
+        result = NO;
+    }
+    return result;
 }
 
 @end

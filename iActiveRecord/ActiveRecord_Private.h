@@ -17,10 +17,9 @@
     BOOL isNew;
     NSMutableSet *errors;
     NSMutableSet *changedFields;
-    NSMutableSet *updatedColumns;
 }
 
-#pragma mark - Static Fields
+@property (nonatomic, retain) NSMutableArray *updatedColumns;
 
 #pragma mark - Validations Declaration
 
@@ -51,11 +50,8 @@
 
 #pragma mark - TableName
 
-+ (NSString *)tableName;
-- (NSString *)tableName;
-
-+ (NSString *)className;
-- (NSString *)className;
++ (NSString *)recordName;
+- (NSString *)recordName;
 
 + (NSArray *)tableFields;
 
@@ -98,11 +94,12 @@
 #pragma mark - New Logic
 
 + (void)registerColumns;
+- (void)registerColumnObservers;
 
 + (NSArray *)columns;
 - (NSArray *)columns;
 
-- (NSArray *)updatedColumns;
+//- (NSArray *)updatedColumns;
 - (ARColumn *)columnNamed:(NSString *)aColumnName;
 
 @end
