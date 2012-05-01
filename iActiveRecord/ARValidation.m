@@ -10,36 +10,30 @@
 
 @implementation ARValidation
 
-@synthesize field;
 @synthesize record;
 @synthesize validator;
+@synthesize column;
 
-- (id)initWithRecord:(NSString *)aRecord 
-               field:(NSString *)aField
-           validator:(Class)aValidator
-{
+- (id)initWithRecord:(NSString *)aRecord column:(ARColumn *)aColumn validator:(Class)aValidator {
     self = [super init];
     if(self != nil){
         self.record = aRecord;
-        self.field  =aField;
+        self.column = aColumn;
         self.validator = aValidator;
     }
     return self;
+    
 }
 
 - (void)dealloc {
     self.record = nil;
     self.validator = nil;
-    self.field = nil;
     [super dealloc];
 }
 
 - (BOOL)isEqual:(id)object {
     ARValidation *otherObject = (ARValidation *)object;
     if(![self.record isEqualToString:otherObject.record]){
-        return NO;
-    }
-    if(![self.field isEqualToString:otherObject.field]){
         return NO;
     }
     if(![self.validator isEqual:otherObject.validator]){

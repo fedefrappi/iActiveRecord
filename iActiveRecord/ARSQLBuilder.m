@@ -90,8 +90,12 @@
         [columns addObject:[NSString stringWithFormat:
                             @"'%@'=?", 
                             column.columnName]];
-        [self.valuesArray addObject:[self.record 
-                                     valueForKey:column.columnName]];
+        id value = [self.record valueForKey:column.columnName];
+        if(value == nil){
+            value = [NSNull null];
+        }
+        
+        [self.valuesArray addObject:value];
     }
     [updatedColumns release];
     

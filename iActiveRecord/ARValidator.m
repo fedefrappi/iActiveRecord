@@ -9,6 +9,7 @@
 #import "ARValidator.h"
 #import "ARValidation.h"
 #import "ActiveRecord.h"
+#import "ARColumn.h"
 
 @interface ARValidator ()
 {
@@ -19,10 +20,9 @@
 
 - (BOOL)isValidOnSave:(id)aRecord;
 - (BOOL)isValidOnUpdate:(id)aRecord;
-
 - (void)registerValidator:(Class)aValidator 
                 forRecord:(NSString *)aRecord 
-                  onField:(NSString *)aField;
+                 onColumn:(ARColumn *)aColumn;
 
 @end
 
@@ -52,10 +52,10 @@
 
 - (void)registerValidator:(Class)aValidator 
                 forRecord:(NSString *)aRecord 
-                  onField:(NSString *)aField
+                 onColumn:(ARColumn *)aColumn
 {
     ARValidation *validation = [[ARValidation alloc] initWithRecord:aRecord
-                                                              field:aField
+                                                             column:aColumn
                                                           validator:aValidator];
     [validations addObject:validation];
     [validation release];
@@ -70,7 +70,7 @@
         ARValidation *validation = [[validations allObjects] objectAtIndex:i];
         if([validation.record isEqualToString:className]){
             id<ARValidatorProtocol> validator = [[validation.validator alloc] init];
-            BOOL result = [validator validateField:validation.field
+            BOOL result = [validator validateField:validation.column.columnName
                                           ofRecord:aRecord];
             
             if(!result){
@@ -79,7 +79,7 @@
                     errMsg = [validator errorMessage];
                 }
                 ARError *error = [[ARError alloc] initWithModel:validation.record
-                                                       property:validation.field
+                                                       property:validation.column.columnName
                                                           error:errMsg];
                 [aRecord performSelector:@selector(addError:) 
                               withObject:error];
@@ -97,9 +97,9 @@
     NSString *className = [aRecord performSelector:@selector(recordName)];
     for(ARValidation *validation in validations){
         if([validation.record isEqualToString:className]){
-            if([[aRecord changedFields] containsObject:validation.field]){
+            if([[aRecord updatedFields] containsObject:validation.column]){
                 id<ARValidatorProtocol> validator = [[validation.validator alloc] init];
-                BOOL result = [validator validateField:validation.field
+                BOOL result = [validator validateField:validation.column.columnName
                                               ofRecord:aRecord];
                 
                 if(!result){
@@ -108,7 +108,7 @@
                         errMsg = [validator errorMessage];
                     }
                     ARError *error = [[ARError alloc] initWithModel:validation.record
-                                                           property:validation.field
+                                                           property:validation.column.columnName
                                                               error:errMsg];
                     [aRecord performSelector:@selector(addError:) 
                                   withObject:error];
@@ -142,11 +142,11 @@ static ARValidator *_instance = nil;
 
 + (void)registerValidator:(Class)aValidator 
                 forRecord:(NSString *)aRecord 
-                  onField:(NSString *)aField
+                 onColumn:(ARColumn *)aColumn
 {
     [[self sharedInstance] registerValidator:aValidator
                                    forRecord:aRecord
-                                     onField:aField];
+                                    onColumn:aColumn];
 }
 
 @end

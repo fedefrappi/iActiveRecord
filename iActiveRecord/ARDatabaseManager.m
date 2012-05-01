@@ -17,7 +17,6 @@
 #import "ARColumn.h"
 #import "ARSQLBuilder.h"
 
-const static char *const kDataTypes[] = {"integer", "real", "text", "blob" };
 
 #define DEFAULT_DBNAME @"database"
 
@@ -336,7 +335,6 @@ static BOOL migrationsEnabled = YES;
                 }
                 [currentRecord setValue:aValue
                                  forKey:propertyName];
-//                [dictionary setValue:aValue forKey:propertyName];
             }
             [resultArray addObject:dictionary];
             [dictionary release];
@@ -357,12 +355,12 @@ static BOOL migrationsEnabled = YES;
     return [self functionResult:aSqlRequest];
 }
 
-- (NSNumber *)getLastId:(NSString *)aRecordName {
-    NSString *aSqlRequest = [NSString stringWithFormat:@"select MAX(id) from %@", 
-                             [aRecordName quotedString]];
-    NSInteger res = [self functionResult:aSqlRequest];
-    return [NSNumber numberWithInt:res];
-}
+//- (NSNumber *)getLastId:(NSString *)aRecordName {
+//    NSString *aSqlRequest = [NSString stringWithFormat:@"select MAX(id) from %@", 
+//                             aRecordName ];
+//    NSInteger res = [self functionResult:aSqlRequest];
+//    return [NSNumber numberWithInt:res];
+//}
 
 - (NSInteger)functionResult:(NSString *)anSql {
     char **results;
@@ -441,16 +439,11 @@ static BOOL migrationsEnabled = YES;
         NSString *bindSelector = [NSString stringWithFormat:
                                   @"bind_%s:columnData:columnIndex:", 
                                   kDataTypes[dataType]];
-        if([value isKindOfClass:[NSNull class]]){
-            [self bind_null:statement 
-                columnIndex:index++];
-        }else{
             objc_msgSend(self, 
                          sel_getUid([bindSelector UTF8String]),
                          statement, 
                          [value performSelector:@selector(sqlData)],
                          index++);
-        }
     }
     
     return statement;
@@ -516,6 +509,7 @@ static BOOL migrationsEnabled = YES;
 }
 
 - (BOOL)bind_null:(sqlite3_stmt *)stmt 
+       columnData:(id)alwaysNil 
       columnIndex:(NSInteger)index 
 {
     int result = sqlite3_bind_null(stmt, index);

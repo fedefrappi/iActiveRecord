@@ -16,7 +16,6 @@
 @private
     BOOL isNew;
     NSMutableSet *errors;
-    NSMutableSet *changedFields;
 }
 
 @property (nonatomic, retain) NSMutableSet *updatedColumns;
@@ -99,6 +98,7 @@
 
 + (NSArray *)ignoredFields;
 
++ (ARColumn *)columnNamed:(NSString *)aColumnName;
 - (ARColumn *)columnNamed:(NSString *)aColumnName;
 
 @end

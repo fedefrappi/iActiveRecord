@@ -197,7 +197,6 @@ static NSString *registerHasManyThrough = @"_ar_registerHasManyThrough";
     self.updatedAt = self.createdAt = nil;
     self.id = nil;
     [errors release];
-    [changedFields release];
     [self.updatedColumns release];
     [super dealloc];
 }
@@ -287,31 +286,6 @@ static NSString *registerHasManyThrough = @"_ar_registerHasManyThrough";
     return [sqlString UTF8String];
 }
 
-/*
-- (const char *)sqlOnUpdate {
-    NSMutableString *sqlString = [NSMutableString stringWithFormat:@"UPDATE '%@' SET ", 
-                                  [self recordName]];
-    NSArray *updatedValues = [changedFields allObjects];
-    NSInteger index = 0;
-    NSString *propertyName = [updatedValues objectAtIndex:index++];
-    id propertyValue = [self valueForKey:propertyName];
-    [sqlString appendFormat:@"%@=%@", propertyName, 
-     [[[propertyValue performSelector:@selector(toSql)] 
-       stringWithEscapedQuote] 
-      quotedString]];
-   
-    for(;index<[updatedValues count];index++){
-        propertyName = [updatedValues objectAtIndex:index++];
-        propertyValue = [self valueForKey:propertyName];
-        [sqlString appendFormat:@", %@=%@", [propertyName quotedString], 
-         [[[propertyValue performSelector:@selector(toSql)] 
-           stringWithEscapedQuote] 
-          quotedString]];
-    }
-    [sqlString appendFormat:@" WHERE id = %@", self.id];
-    return [sqlString UTF8String];
-}*/
-
 + (const char *)sqlOnDeleteAll {
     NSString *sql = [NSString stringWithFormat:@"DELETE FROM '%@'", [self recordName]];
     return [sql UTF8String];
@@ -377,21 +351,24 @@ static NSString *registerHasManyThrough = @"_ar_registerHasManyThrough";
 #pragma mark - Validations
 
 + (void)validateUniquenessOfField:(NSString *)aField {
+    ARColumn *column = [self columnNamed:aField];
     [ARValidator registerValidator:[ARValidatorUniqueness class]
                          forRecord:[self recordName]
-                           onField:aField];
+                           onColumn:column];
 }
 
 + (void)validatePresenceOfField:(NSString *)aField {
+    ARColumn *column = [self columnNamed:aField];
     [ARValidator registerValidator:[ARValidatorPresence class]
                          forRecord:[self recordName]
-                           onField:aField];
+                           onColumn:column];
 }
 
 + (void)validateField:(NSString *)aField withValidator:(NSString *)aValidator {
+    ARColumn *column = [self columnNamed:aField];
     [ARValidator registerValidator:NSClassFromString(aValidator)
                          forRecord:[self recordName]
-                           onField:aField];
+                           onColumn:column];
 }
 
 - (BOOL)isValid {
@@ -443,14 +420,6 @@ static NSString *registerHasManyThrough = @"_ar_registerHasManyThrough";
         return YES;
     }
     return NO;
-//    const char *sql = [self sqlOnUpdate];
-//    if(NULL != sql){
-//        [[ARDatabaseManager sharedInstance] executeSqlQuery:sql];
-//        isNew = NO;
-//        [changedFields removeAllObjects];
-//        return YES;
-//    }
-//    return NO;
 }
 
 + (NSInteger)count {
@@ -627,9 +596,13 @@ static NSString *registerHasManyThrough = @"_ar_registerHasManyThrough";
     return [[self class] columns];
 }
 
-- (ARColumn *)columnNamed:(NSString *)aColumnName {
++ (ARColumn *)columnNamed:(NSString *)aColumnName {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"columnName = %@", aColumnName];
     return [[[self columns] filteredArrayUsingPredicate:predicate] first];
+}
+
+- (ARColumn *)columnNamed:(NSString *)aColumnName {
+    return [[self class] columnNamed:aColumnName];
 }
 
 - (void)registerColumnObservers {
@@ -646,6 +619,7 @@ static NSString *registerHasManyThrough = @"_ar_registerHasManyThrough";
 - (void)removeColumnObservers {
     NSArray *columns = [[self columns] copy];
     for(ARColumn *column in columns){
+        NSLog(@"Unregister %@", column);
         [self removeObserver:self
                   forKeyPath:column.columnName];
     }

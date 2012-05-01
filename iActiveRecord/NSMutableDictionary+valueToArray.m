@@ -11,10 +11,6 @@
 @implementation NSMutableDictionary (valueToArray)
 
 - (void)addValue:(id)aValue toArrayNamed:(NSString *)anArrayName {
-    if (aValue == nil) {
-        return;
-    }
-    
     NSMutableArray *anArray = [self objectForKey:anArrayName];
     if (anArray == nil) {
         anArray = [NSMutableArray array];

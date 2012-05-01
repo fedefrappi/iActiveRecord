@@ -9,12 +9,14 @@
 #import <Foundation/Foundation.h>
 #import "ARValidatorProtocol.h"
 
+@class ARColumn;
+
 @interface ARValidator : NSObject
 
 + (BOOL)isValidOnSave:(id)aRecord;
 + (BOOL)isValidOnUpdate:(id)aRecord;
 + (void)registerValidator:(Class)aValidator 
                 forRecord:(NSString *)aRecord 
-                  onField:(NSString *)aField;
+                 onColumn:(ARColumn *)aColumn;
 
 @end
