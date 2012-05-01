@@ -11,6 +11,7 @@
 
 @class ActiveRecord;
 @class ARSQLBuilder;
+@class ARLazyFetcher;
 
 @interface ARDatabaseManager : NSObject
 {
@@ -58,6 +59,7 @@
 //  or 0 if save failure
 - (NSInteger)saveRecord:(ActiveRecord *)aRecord;
 - (NSInteger)updateRecord:(ActiveRecord *)aRecord;
+- (NSArray *)recordsWithFetcher:(ARLazyFetcher *)aFetcher;
 
 - (sqlite3_stmt *)statementFromBuilder:(ARSQLBuilder *)aBuilder;
 

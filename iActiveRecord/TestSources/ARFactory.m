@@ -8,7 +8,6 @@
 
 #import "ARFactory.h"
 #import "ActiveRecord.h"
-#import "ARObjectProperty.h"
 
 @implementation ARFactory
 
@@ -36,23 +35,23 @@
 }
 
 + (ActiveRecord *)buildPropertiesOfRecord:(ActiveRecord *)aRecord withSeed:(NSInteger)aSeed {
-    NSArray *properties = [[aRecord class] performSelector:@selector(tableFields)];
-    for(ARObjectProperty *property in properties){
-        if([property.propertyName isEqualToString:@"id"]){
-            continue;
-        }
-        if([property.propertyType isEqualToString:@"NSString"]){
-            NSString *value = [NSString stringWithFormat:
-                               @"%@_%d_%d", 
-                               property.propertyName, 
-                               time(0), 
-                               aSeed];
-            [aRecord setValue:value forKey:property.propertyName];
-        }else if([property.propertyType isEqualToString:@"NSNumber"]){
-            NSNumber *value = [NSNumber numberWithInt:time(0) + arc4random()%(aSeed + 1)];
-            [aRecord setValue:value forKey:property.propertyName];
-        }
-    }
+//    NSArray *properties = [[aRecord class] performSelector:@selector(tableFields)];
+//    for(ARObjectProperty *property in properties){
+//        if([property.propertyName isEqualToString:@"id"]){
+//            continue;
+//        }
+//        if([property.propertyType isEqualToString:@"NSString"]){
+//            NSString *value = [NSString stringWithFormat:
+//                               @"%@_%d_%d", 
+//                               property.propertyName, 
+//                               time(0), 
+//                               aSeed];
+//            [aRecord setValue:value forKey:property.propertyName];
+//        }else if([property.propertyType isEqualToString:@"NSNumber"]){
+//            NSNumber *value = [NSNumber numberWithInt:time(0) + arc4random()%(aSeed + 1)];
+//            [aRecord setValue:value forKey:property.propertyName];
+//        }
+//    }
     return aRecord;
 }
 

@@ -50,7 +50,7 @@
 + (NSString *)recordName;
 - (NSString *)recordName;
 
-+ (NSArray *)tableFields;
+//+ (NSArray *)tableFields;
 
 #pragma mark - Relationships
 

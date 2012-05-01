@@ -18,6 +18,7 @@
 
 - (void)buildForCreate;
 - (void)buildForUpdate;
+- (void)buildForSelect;
 
 - (NSString *)sql;
 - (NSArray *)values;

@@ -9,8 +9,8 @@
 #import "ARLazyFetcher.h"
 #import "ARDatabaseManager.h"
 #import "ARWhereStatement.h"
-#import "ARObjectProperty.h"
 #import "NSString+lowercaseFirst.h"
+#import "ARColumn.h"
 
 static const char *joins[] = {"LEFT", "RIGHT", "INNER", "OUTER"};
 
@@ -105,9 +105,9 @@ static NSString* joinString(ARJoinType type)
     if(onlyFields){
         [fields addObjectsFromArray:[onlyFields allObjects]];
     }else {
-        NSArray *properties = [aRecord performSelector:@selector(tableFields)];
-        for(ARObjectProperty *property in properties){
-            [fields addObject:property.propertyName];
+        NSArray *properties = [aRecord performSelector:@selector(columns)];
+        for(ARColumn *column in properties){
+            [fields addObject:column.columnName];
         }
     }
     if(exceptFields){

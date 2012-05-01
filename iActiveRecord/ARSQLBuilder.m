@@ -106,6 +106,10 @@
                       self.record.id];
 }
 
+- (void)buildForSelect {
+    
+}
+
 - (NSString *)sql {
     return self.sqlString;
 }

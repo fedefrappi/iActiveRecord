@@ -10,12 +10,10 @@
 #import "ARDatabaseManager.h"
 #import "NSString+lowercaseFirst.h"
 #import <objc/runtime.h>
-#import "ARObjectProperty.h"
 #import "ARValidationsHelper.h"
 #import "ARValidatableProtocol.h"
 #import "ARErrorHelper.h"
 #import "ARMigrationsHelper.h"
-#import "NSObject+properties.h"
 #import "NSArray+objectsAccessors.h"
 #import "ARDatabaseManager.h"
 
@@ -23,7 +21,6 @@
 #import "ARRelationHasMany.h"
 #import "ARRelationHasManyThrough.h"
 
-#import "ARObjectProperty.h"
 
 #import "ARValidator.h"
 #import "ARValidatorUniqueness.h"
@@ -38,6 +35,8 @@
 #import "ARColumn_Private.h"
 
 #import "ARSchemaManager.h"
+
+#import "ARDataType.h"
 
 static NSMutableDictionary *relationshipsDictionary = nil;
 
@@ -247,12 +246,12 @@ static NSString *registerHasManyThrough = @"_ar_registerHasManyThrough";
     NSMutableString *sqlString = [NSMutableString stringWithFormat:
                                   @"ALTER TABLE '%@' ADD COLUMN ", 
                                   [self recordName]];
-    NSString *propertyClassName = [self propertyClassNameWithPropertyName:aColumn];
-    Class PropertyClass = NSClassFromString(propertyClassName);
+    ARColumn *column = [self columnNamed:aColumn];
+    ARDataType dataType = (ARDataType)[column.columnClass performSelector:@selector(dataType)];
     [sqlString appendFormat:
      @"'%@' %s", 
      aColumn,
-     [PropertyClass performSelector:@selector(sqlType)]];
+     kDataTypes[dataType]];
     return [sqlString UTF8String];
 }
 
@@ -261,17 +260,18 @@ static NSString *registerHasManyThrough = @"_ar_registerHasManyThrough";
     NSMutableString *sqlString = [NSMutableString stringWithFormat:
                                   @"create table '%@'(id integer primary key unique ", 
                                   [self recordName]];
-    NSArray *properties = [self activeRecordProperties];
-    if([properties count] == 0){
+    NSArray *columns = [self columns];
+    if([columns count] == 0){
         return NULL;
     }
     Class propertyClass = nil;
-    for(ARObjectProperty *property in [self tableFields]){
-        if(![property.propertyName isEqualToString:@"id"]){
-            propertyClass = NSClassFromString(property.propertyType);
-            [sqlString appendFormat:@", %@ %s", 
-             property.propertyName, 
-            [propertyClass performSelector:@selector(sqlType)]];
+    for(ARColumn *column in columns){
+        if(![column.columnName isEqualToString:@"id"]){
+            propertyClass = NSClassFromString(column.columnName);
+            ARDataType dataType = (ARDataType)[propertyClass performSelector:@selector(dataType)];
+            [sqlString appendFormat:@", '%@' %s", 
+             column.columnName, 
+             kDataTypes[dataType]];
         }
     }
     [sqlString appendFormat:@")"];
@@ -333,17 +333,17 @@ static NSString *registerHasManyThrough = @"_ar_registerHasManyThrough";
 #pragma mark - Equal
 
 - (BOOL)isEqualToRecord:(ActiveRecord *)anOtherRecord {
-    if(nil == anOtherRecord){
-        return NO;
-    }
-    NSArray *properties = [[self class] activeRecordProperties];
-    for(ARObjectProperty *property in properties){
-        id lValue = [self valueForKey:property.propertyName];
-        id rValue = [anOtherRecord valueForKey:property.propertyName];
-        if( ![lValue isEqual:rValue] ){
-            return NO;
-        }
-    }
+//    if(nil == anOtherRecord){
+//        return NO;
+//    }
+//    NSArray *properties = [[self class] activeRecordProperties];
+//    for(ARObjectProperty *property in properties){
+//        id lValue = [self valueForKey:property.propertyName];
+//        id rValue = [anOtherRecord valueForKey:property.propertyName];
+//        if( ![lValue isEqual:rValue] ){
+//            return NO;
+//        }
+//    }
     return YES;
 }
 
@@ -519,16 +519,16 @@ static NSString *registerHasManyThrough = @"_ar_registerHasManyThrough";
 
 #pragma mark - Description
 
-- (NSString *)description {
-    NSMutableString *descr = [NSMutableString stringWithFormat:@"%@\n", [[self class] description]];
-    NSArray *properties = [[self class] activeRecordProperties];
-    for(ARObjectProperty *property in properties){
-        [descr appendFormat:@"%@ => %@\n", 
-        property.propertyName, 
-        [self valueForKey:property.propertyName]];
-    }
-    return descr;
-}
+//- (NSString *)description {
+//    NSMutableString *descr = [NSMutableString stringWithFormat:@"%@\n", [[self class] description]];
+//    NSArray *properties = [[self class] activeRecordProperties];
+//    for(ARObjectProperty *property in properties){
+//        [descr appendFormat:@"%@ => %@\n", 
+//        property.propertyName, 
+//        [self valueForKey:property.propertyName]];
+//    }
+//    return descr;
+//}
 
 #pragma mark - Drop records
 
@@ -543,16 +543,16 @@ static NSString *registerHasManyThrough = @"_ar_registerHasManyThrough";
 
 #pragma mark - TableFields
 
-+ (NSArray *)tableFields {
-    NSArray *properties = [self activeRecordProperties];
-    NSMutableArray *tableFields = [NSMutableArray arrayWithCapacity:[properties count]];
-    for(ARObjectProperty *property in properties){
-        if(![ignoredFields containsObject:property.propertyName]){
-            [tableFields addObject:property];
-        }
-    }
-    return tableFields;
-}
+//+ (NSArray *)tableFields {
+//    NSArray *properties = [self activeRecordProperties];
+//    NSMutableArray *tableFields = [NSMutableArray arrayWithCapacity:[properties count]];
+//    for(ARObjectProperty *property in properties){
+//        if(![ignoredFields containsObject:property.propertyName]){
+//            [tableFields addObject:property];
+//        }
+//    }
+//    return tableFields;
+//}
 
 #pragma mark - Storage
 
@@ -620,8 +620,12 @@ static NSString *registerHasManyThrough = @"_ar_registerHasManyThrough";
 - (void)removeColumnObservers {
     NSArray *columns = [[self columns] copy];
     for(ARColumn *column in columns){
-        [self removeObserver:self
-                  forKeyPath:column.columnName];
+        @try {
+            [self removeObserver:self
+                      forKeyPath:column.columnName];
+        }
+        @catch (NSException *exception) {
+        }
     }
     [columns release]; 
 }

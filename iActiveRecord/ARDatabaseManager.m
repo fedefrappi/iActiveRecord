@@ -10,13 +10,12 @@
 #import "ActiveRecord.h"
 #import "class_getSubclasses.h"
 #import <sys/xattr.h>
-#import "ARObjectProperty.h"
 #import "sqlite3_unicode.h"
 #import "ActiveRecord_Private.h"
 #import "ARDataType.h"
 #import "ARColumn.h"
 #import "ARSQLBuilder.h"
-
+#import "ARLazyFetcher.h"
 
 #define DEFAULT_DBNAME @"database"
 
@@ -110,10 +109,10 @@ static BOOL migrationsEnabled = YES;
             Class Record = NSClassFromString(table);
             NSArray *existedColumns = [self columnsForTable:table];
             
-            NSArray *describedProperties = [Record performSelector:@selector(tableFields)];
+            NSArray *describedProperties = [Record performSelector:@selector(columns)];
             NSMutableArray *describedColumns = [NSMutableArray array];
-            for(ARObjectProperty *property in describedProperties){
-                [describedColumns addObject:property.propertyName];
+            for(ARColumn *column in describedProperties){
+                [describedColumns addObject:column.columnName];
             }
             for(NSString *column in describedColumns){
                 if(![existedColumns containsObject:column]){
@@ -257,10 +256,9 @@ static BOOL migrationsEnabled = YES;
                 const char *pszValue = results[index];
                 
                 if(pszValue){
-                    NSString *propertyClassName = [Record 
-                                                   performSelector:@selector(propertyClassNameWithPropertyName:) 
-                                                   withObject:propertyName];
-                    Class propertyClass = NSClassFromString(propertyClassName);
+                    ARColumn *column = [Record performSelector:@selector(columnNamed:) 
+                                                    withObject:propertyName];
+                    Class propertyClass = column.columnClass;
                     NSString *sqlData = [NSString stringWithUTF8String:pszValue];
                     aValue = [propertyClass performSelector:@selector(fromSql:) 
                                                  withObject:sqlData];
@@ -312,10 +310,9 @@ static BOOL migrationsEnabled = YES;
                 int index = (i+1)*nColumns + j;
                 const char *pszValue = results[index];
                 if(pszValue){
-                    NSString *propertyClassName = [Record 
-                                                   performSelector:@selector(propertyClassNameWithPropertyName:) 
-                                                        withObject:propertyName];
-                    Class propertyClass = NSClassFromString(propertyClassName);
+                    ARColumn *column = [Record performSelector:@selector(columnNamed:) 
+                                                    withObject:propertyName];
+                    Class propertyClass = column.columnClass;
                     NSString *sqlData = [NSString stringWithUTF8String:pszValue];
                     aValue = [propertyClass performSelector:@selector(fromSql:) 
                                                  withObject:sqlData];
@@ -416,6 +413,13 @@ static BOOL migrationsEnabled = YES;
         return 0;
     }
     return 1;
+}
+
+- (NSArray *)recordsWithFetcher:(id)aFetcher {
+    ARSQLBuilder *builder = [ARSQLBuilder builderWithFetcher:aFetcher];
+    [builder buildForSelect];
+    sqlite3_stmt *statement = [self statementFromBuilder:builder];
+    return nil;
 }
 
 - (sqlite3_stmt *)statementFromBuilder:(ARSQLBuilder *)aBuilder {
