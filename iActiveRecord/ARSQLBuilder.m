@@ -71,7 +71,7 @@
     [updatedColumns release];
     
     self.sqlString = [NSMutableString 
-                      stringWithFormat:@"INSERT INTO %@(%@) VALUES(%@)", 
+                      stringWithFormat:@"INSERT INTO '%@'(%@) VALUES(%@)", 
                       self.record.recordName,
                       [columns componentsJoinedByString:@","],
                       [values componentsJoinedByString:@","]];

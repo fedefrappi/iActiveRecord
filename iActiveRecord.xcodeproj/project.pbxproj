@@ -118,6 +118,10 @@
 		CA8D9EB0152D7876005F9073 /* NSString+stringWithEscapedQuote.m in Sources */ = {isa = PBXBuildFile; fileRef = CA8D9EAE152D7876005F9073 /* NSString+stringWithEscapedQuote.m */; };
 		CA8D9EB1152D7876005F9073 /* NSString+stringWithEscapedQuote.m in Sources */ = {isa = PBXBuildFile; fileRef = CA8D9EAE152D7876005F9073 /* NSString+stringWithEscapedQuote.m */; };
 		CA8D9EB2152D7876005F9073 /* NSString+stringWithEscapedQuote.m in Sources */ = {isa = PBXBuildFile; fileRef = CA8D9EAE152D7876005F9073 /* NSString+stringWithEscapedQuote.m */; };
+		CA91CD8815504C22002FCF5D /* NSMutableDictionary+addValueToSet.h in Headers */ = {isa = PBXBuildFile; fileRef = CA91CD8615504C22002FCF5D /* NSMutableDictionary+addValueToSet.h */; };
+		CA91CD8915504C22002FCF5D /* NSMutableDictionary+addValueToSet.m in Sources */ = {isa = PBXBuildFile; fileRef = CA91CD8715504C22002FCF5D /* NSMutableDictionary+addValueToSet.m */; };
+		CA91CD8A15504C22002FCF5D /* NSMutableDictionary+addValueToSet.m in Sources */ = {isa = PBXBuildFile; fileRef = CA91CD8715504C22002FCF5D /* NSMutableDictionary+addValueToSet.m */; };
+		CA91CD8B15504C22002FCF5D /* NSMutableDictionary+addValueToSet.m in Sources */ = {isa = PBXBuildFile; fileRef = CA91CD8715504C22002FCF5D /* NSMutableDictionary+addValueToSet.m */; };
 		CA9EC799154D550900A9DD4D /* Car.h in Headers */ = {isa = PBXBuildFile; fileRef = CA9EC797154D550900A9DD4D /* Car.h */; };
 		CA9EC79A154D550900A9DD4D /* Car.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9EC798154D550900A9DD4D /* Car.m */; };
 		CA9EC79B154D550900A9DD4D /* Car.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9EC798154D550900A9DD4D /* Car.m */; };
@@ -324,6 +328,8 @@
 		CA8D9EAD152D7876005F9073 /* NSString+stringWithEscapedQuote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+stringWithEscapedQuote.h"; sourceTree = "<group>"; };
 		CA8D9EAE152D7876005F9073 /* NSString+stringWithEscapedQuote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+stringWithEscapedQuote.m"; sourceTree = "<group>"; };
 		CA8D9EDF152EC5EB005F9073 /* ARJoinSpecs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARJoinSpecs.h; sourceTree = "<group>"; };
+		CA91CD8615504C22002FCF5D /* NSMutableDictionary+addValueToSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+addValueToSet.h"; sourceTree = "<group>"; };
+		CA91CD8715504C22002FCF5D /* NSMutableDictionary+addValueToSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+addValueToSet.m"; sourceTree = "<group>"; };
 		CA9EC797154D550900A9DD4D /* Car.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Car.h; path = TestSources/Car.h; sourceTree = "<group>"; };
 		CA9EC798154D550900A9DD4D /* Car.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Car.m; path = TestSources/Car.m; sourceTree = "<group>"; };
 		CA9EC79F154D5B4400A9DD4D /* ARColumn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARColumn.h; sourceTree = "<group>"; };
@@ -589,7 +595,7 @@
 			isa = PBXGroup;
 			children = (
 				CAAE1C841550332500B489C3 /* ARSQLBuilder */,
-				CA485F751550274F00C37CD8 /* ARColumnManager */,
+				CA485F751550274F00C37CD8 /* ARSchemaManager */,
 				CA485F35154D6FD200C37CD8 /* ARDatabaseManager */,
 				CA9EC79E154D5B2300A9DD4D /* ARColumn */,
 				CA6EEA15154C8C7800B07AB4 /* Enums */,
@@ -737,13 +743,13 @@
 			name = ARDatabaseManager;
 			sourceTree = "<group>";
 		};
-		CA485F751550274F00C37CD8 /* ARColumnManager */ = {
+		CA485F751550274F00C37CD8 /* ARSchemaManager */ = {
 			isa = PBXGroup;
 			children = (
 				CA485F771550279400C37CD8 /* ARSchemaManager.h */,
 				CA485F781550279400C37CD8 /* ARSchemaManager.m */,
 			);
-			name = ARColumnManager;
+			name = ARSchemaManager;
 			sourceTree = "<group>";
 		};
 		CA62C30A151E0AB800E54276 /* Other Frameworks */ = {
@@ -962,6 +968,8 @@
 			children = (
 				CADA6AED154472D800CCE41D /* NSMutableDictionary+valueToArray.h */,
 				CADA6AEE154472D800CCE41D /* NSMutableDictionary+valueToArray.m */,
+				CA91CD8615504C22002FCF5D /* NSMutableDictionary+addValueToSet.h */,
+				CA91CD8715504C22002FCF5D /* NSMutableDictionary+addValueToSet.m */,
 			);
 			name = NSMutableDictionary;
 			sourceTree = "<group>";
@@ -1030,6 +1038,7 @@
 				CA9EC7A1154D5B4400A9DD4D /* ARColumn.h in Headers */,
 				CA485F791550279400C37CD8 /* ARSchemaManager.h in Headers */,
 				CAAE1C881550334100B489C3 /* ARSQLBuilder.h in Headers */,
+				CA91CD8815504C22002FCF5D /* NSMutableDictionary+addValueToSet.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1216,6 +1225,7 @@
 				CA9EC7A3154D5B4400A9DD4D /* ARColumn.m in Sources */,
 				CA485F7B1550279400C37CD8 /* ARSchemaManager.m in Sources */,
 				CAAE1C8A1550334100B489C3 /* ARSQLBuilder.m in Sources */,
+				CA91CD8A15504C22002FCF5D /* NSMutableDictionary+addValueToSet.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1272,6 +1282,7 @@
 				CA9EC7A2154D5B4400A9DD4D /* ARColumn.m in Sources */,
 				CA485F7A1550279400C37CD8 /* ARSchemaManager.m in Sources */,
 				CAAE1C891550334100B489C3 /* ARSQLBuilder.m in Sources */,
+				CA91CD8915504C22002FCF5D /* NSMutableDictionary+addValueToSet.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1315,6 +1326,7 @@
 				CA9EC7A4154D5B4400A9DD4D /* ARColumn.m in Sources */,
 				CA485F7C1550279400C37CD8 /* ARSchemaManager.m in Sources */,
 				CAAE1C8B1550334100B489C3 /* ARSQLBuilder.m in Sources */,
+				CA91CD8B15504C22002FCF5D /* NSMutableDictionary+addValueToSet.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

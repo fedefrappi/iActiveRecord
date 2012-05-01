@@ -186,7 +186,7 @@ static NSString *registerHasManyThrough = @"_ar_registerHasManyThrough";
 - (id)init {
     self = [super init];
     if(nil != self){
-        self.updatedColumns = [NSMutableArray new];
+        self.updatedColumns = [NSMutableSet new];
         [self registerColumnObservers]; 
         self.updatedAt = [NSDate dateWithTimeIntervalSinceNow:0];
         self.createdAt = [NSDate dateWithTimeIntervalSinceNow:0];
@@ -410,10 +410,6 @@ static NSString *registerHasManyThrough = @"_ar_registerHasManyThrough";
     return [errors allObjects];
 }
 
-//- (NSArray *)changedFields {
-//    return [changedFields allObjects];
-//}
-
 #pragma mark - Save/Update
 
 - (BOOL)save {
@@ -424,7 +420,12 @@ static NSString *registerHasManyThrough = @"_ar_registerHasManyThrough";
         return NO;
     }
     self.updatedAt = [NSDate dateWithTimeIntervalSinceNow:0];
-    return [[ARDatabaseManager sharedInstance] saveRecord:self];
+    NSInteger last_id = [[ARDatabaseManager sharedInstance] saveRecord:self];
+    if(last_id){
+        self.id = [NSNumber numberWithInt:last_id];
+        [self.updatedColumns removeAllObjects];
+    }
+    return NO;
 }
 
 - (BOOL)update {
@@ -653,7 +654,7 @@ static NSString *registerHasManyThrough = @"_ar_registerHasManyThrough";
 }
 
 - (NSArray *)updatedFields {
-    return self.updatedColumns;
+    return [self.updatedColumns allObjects];
 }
 
 + (NSArray *)ignoredFields {

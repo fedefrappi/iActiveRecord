@@ -8,7 +8,7 @@
 
 #import "ARSchemaManager.h"
 #import "ARColumn_Private.h"
-#import "NSMutableDictionary+valueToArray.h"
+#import "NSMutableDictionary+addValueToSet.h"
 
 @implementation ARSchemaManager
 
@@ -47,7 +47,7 @@ static ARSchemaManager *_instance = nil;
             ARColumn *column = [[ARColumn alloc] initWithProperty:properties[i]];
             if(![ignoredFields containsObject:column.columnName]){
                 [self.schemes addValue:column
-                          toArrayNamed:[aRecordClass 
+                          toSetNamed:[aRecordClass 
                                         performSelector:@selector(recordName)]];
             }
             [column release];
@@ -57,7 +57,7 @@ static ARSchemaManager *_instance = nil;
 }
 
 - (NSArray *)columnsForRecord:(Class)aRecordClass {
-    return [self.schemes valueForKey:[aRecordClass performSelector:@selector(recordName)]];
+    return [[self.schemes valueForKey:[aRecordClass performSelector:@selector(recordName)]] allObjects];
 }
 
 @end

@@ -19,7 +19,7 @@
     NSMutableSet *changedFields;
 }
 
-@property (nonatomic, retain) NSMutableArray *updatedColumns;
+@property (nonatomic, retain) NSMutableSet *updatedColumns;
 
 #pragma mark - Validations Declaration
 

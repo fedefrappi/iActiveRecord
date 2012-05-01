@@ -68,7 +68,7 @@
 {
     NSString *stmt = [NSString stringWithFormat:
                       @" %@.%@ LIKE %@ ",
-                      [[aRecord performSelector:@selector(tableName)] quotedString],
+                      [[aRecord performSelector:@selector(recordName)] quotedString],
                       [aField quotedString],
                       [aPattern quotedString]];
     return [ARWhereStatement statement:stmt];
@@ -80,7 +80,7 @@
 {
     NSString *stmt = [NSString stringWithFormat:
                       @" %@.%@ NOT LIKE %@ ",
-                      [[aRecord performSelector:@selector(tableName)] quotedString],
+                      [[aRecord performSelector:@selector(recordName)] quotedString],
                       [aField quotedString],
                       [aPattern quotedString]];
     return [ARWhereStatement statement:stmt];
@@ -112,7 +112,7 @@
 {
     NSString *stmt = [NSString stringWithFormat:
                       @" %@.%@ = %@ ",
-                      [[aRecord performSelector:@selector(tableName)] quotedString],
+                      [[aRecord performSelector:@selector(recordName)] quotedString],
                       [aField quotedString],
                       [[[aValue performSelector:@selector(toSql)] 
                         stringWithEscapedQuote] 
@@ -124,7 +124,7 @@
 {
     NSString *stmt = [NSString stringWithFormat:
                       @" %@.%@ <> %@ ",
-                      [[aRecord performSelector:@selector(tableName)] quotedString],
+                      [[aRecord performSelector:@selector(recordName)] quotedString],
                       [aField quotedString],
                       [[[aValue performSelector:@selector(toSql)] 
                         stringWithEscapedQuote] 
@@ -136,7 +136,7 @@
 {
     NSString *field = [NSString stringWithFormat:
                        @"%@.%@", 
-                       [[aRecord performSelector:@selector(tableName)] quotedString],
+                       [[aRecord performSelector:@selector(recordName)] quotedString],
                        [aField quotedString]];
     return [self statementForField:field
                          fromArray:aValues
@@ -147,7 +147,7 @@
 {
     NSString *field = [NSString stringWithFormat:
                        @"%@.%@", 
-                       [[aRecord performSelector:@selector(tableName)] quotedString],
+                       [[aRecord performSelector:@selector(recordName)] quotedString],
                        [aField quotedString]];
     return [self statementForField:field
                          fromArray:aValues
