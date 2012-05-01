@@ -58,6 +58,7 @@
 //  returns new record ID
 //  or 0 if save failure
 - (NSInteger)saveRecord:(ActiveRecord *)aRecord;
+- (NSInteger)updateRecord:(ActiveRecord *)aRecord;
 
 - (sqlite3_stmt *)statementFromBuilder:(ARSQLBuilder *)aBuilder;
 

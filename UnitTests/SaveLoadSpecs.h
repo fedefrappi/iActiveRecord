@@ -29,6 +29,17 @@ describe(@"ActiveRecord", ^{
         Car *firstCar = [[Car allRecords] first];
         expect(firstCar.model).toEqual(car.model);
     });
+    it(@"should success update and load record", ^{
+        Car *car = [Car newRecord];
+        car.model = @"UAZ 2101";
+        [car save];
+        [car release];
+        Car *firstCar = [[Car allRecords] first];
+        firstCar.model = @"BMV";
+        [firstCar save];
+        Car *updatedCar = [[Car allRecords] first];
+        expect(updatedCar.model).toEqual(firstCar.model);
+    });
 });
 
 SPEC_END

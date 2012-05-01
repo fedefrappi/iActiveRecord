@@ -9,7 +9,6 @@
 #import "ARDatabaseManager.h"
 #import "ActiveRecord.h"
 #import "class_getSubclasses.h"
-#import "NSString+quotedString.h"
 #import <sys/xattr.h>
 #import "ARObjectProperty.h"
 #import "sqlite3_unicode.h"
@@ -143,7 +142,7 @@ static BOOL migrationsEnabled = YES;
 }
 
 - (NSArray *)columnsForTable:(NSString *)aTableName {
-    NSString *sql = [NSString stringWithFormat:@"PRAGMA table_info(%@)", [aTableName quotedString]];
+    NSString *sql = [NSString stringWithFormat:@"PRAGMA table_info('%@')", aTableName];
     NSMutableArray *resultArray = nil;
     char **results;
     int nRows;
@@ -413,6 +412,17 @@ static BOOL migrationsEnabled = YES;
         return 0;
     }
     return sqlite3_last_insert_rowid(database);
+}
+
+- (NSInteger)updateRecord:(ActiveRecord *)aRecord {
+    ARSQLBuilder *builder = [ARSQLBuilder builderWithRecord:aRecord];
+    [builder buildForUpdate];
+    sqlite3_stmt *statement = [self statementFromBuilder:builder];
+    if(sqlite3_step(statement) != SQLITE_DONE){
+        NSLog(@"Cannot execute step %s", sqlite3_errmsg(database));
+        return 0;
+    }
+    return 1;
 }
 
 - (sqlite3_stmt *)statementFromBuilder:(ARSQLBuilder *)aBuilder {

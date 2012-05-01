@@ -17,6 +17,7 @@
 + (ARSQLBuilder *)builderWithFetcher:(ARLazyFetcher *)aFetcher;
 
 - (void)buildForCreate;
+- (void)buildForUpdate;
 
 - (NSString *)sql;
 - (NSArray *)values;

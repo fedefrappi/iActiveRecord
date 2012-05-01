@@ -49,10 +49,6 @@
 		25998EE914BC1A1D00CA2490 /* NSString+lowercaseFirst.m in Sources */ = {isa = PBXBuildFile; fileRef = 25998EE614BC1A1D00CA2490 /* NSString+lowercaseFirst.m */; };
 		25998EFA14BC1DD400CA2490 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 25998EF914BC1DD400CA2490 /* libsqlite3.0.dylib */; };
 		25998F0314BC2D8500CA2490 /* NSObject+properties.m in Sources */ = {isa = PBXBuildFile; fileRef = 25998F0214BC2D8500CA2490 /* NSObject+properties.m */; };
-		CA0365C0151FCB5F004167F1 /* NSString+quotedString.h in Headers */ = {isa = PBXBuildFile; fileRef = CA0365BE151FCB5F004167F1 /* NSString+quotedString.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		CA0365C1151FCB5F004167F1 /* NSString+quotedString.m in Sources */ = {isa = PBXBuildFile; fileRef = CA0365BF151FCB5F004167F1 /* NSString+quotedString.m */; };
-		CA0365C2151FCB5F004167F1 /* NSString+quotedString.m in Sources */ = {isa = PBXBuildFile; fileRef = CA0365BF151FCB5F004167F1 /* NSString+quotedString.m */; };
-		CA0365C3151FCB5F004167F1 /* NSString+quotedString.m in Sources */ = {isa = PBXBuildFile; fileRef = CA0365BF151FCB5F004167F1 /* NSString+quotedString.m */; };
 		CA0DC2A71522417F00C8E75D /* AREnum.h in Headers */ = {isa = PBXBuildFile; fileRef = CABB90971520DA2000E8D082 /* AREnum.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CA3D17BA151926B700FA3F3C /* Cedar-iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA3D17B8151926B700FA3F3C /* Cedar-iOS.framework */; };
 		CA3D18061519D5FA00FA3F3C /* ARLazyFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = CA3D18051519D5FA00FA3F3C /* ARLazyFetcher.m */; };
@@ -114,10 +110,6 @@
 		CA62C33D151E0F0700E54276 /* ARDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 25998EE314BC1A1D00CA2490 /* ARDatabaseManager.m */; };
 		CA62C392151E710800E54276 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = CA62C391151E710700E54276 /* README.md */; };
 		CA8CB48D152F740F00510A14 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = CA8CB48C152F740F00510A14 /* LICENSE */; };
-		CA8D9EAF152D7876005F9073 /* NSString+stringWithEscapedQuote.h in Headers */ = {isa = PBXBuildFile; fileRef = CA8D9EAD152D7876005F9073 /* NSString+stringWithEscapedQuote.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CA8D9EB0152D7876005F9073 /* NSString+stringWithEscapedQuote.m in Sources */ = {isa = PBXBuildFile; fileRef = CA8D9EAE152D7876005F9073 /* NSString+stringWithEscapedQuote.m */; };
-		CA8D9EB1152D7876005F9073 /* NSString+stringWithEscapedQuote.m in Sources */ = {isa = PBXBuildFile; fileRef = CA8D9EAE152D7876005F9073 /* NSString+stringWithEscapedQuote.m */; };
-		CA8D9EB2152D7876005F9073 /* NSString+stringWithEscapedQuote.m in Sources */ = {isa = PBXBuildFile; fileRef = CA8D9EAE152D7876005F9073 /* NSString+stringWithEscapedQuote.m */; };
 		CA91CD8815504C22002FCF5D /* NSMutableDictionary+addValueToSet.h in Headers */ = {isa = PBXBuildFile; fileRef = CA91CD8615504C22002FCF5D /* NSMutableDictionary+addValueToSet.h */; };
 		CA91CD8915504C22002FCF5D /* NSMutableDictionary+addValueToSet.m in Sources */ = {isa = PBXBuildFile; fileRef = CA91CD8715504C22002FCF5D /* NSMutableDictionary+addValueToSet.m */; };
 		CA91CD8A15504C22002FCF5D /* NSMutableDictionary+addValueToSet.m in Sources */ = {isa = PBXBuildFile; fileRef = CA91CD8715504C22002FCF5D /* NSMutableDictionary+addValueToSet.m */; };
@@ -288,8 +280,6 @@
 		25A1132514D9BC10000720E7 /* ARValidatableProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARValidatableProtocol.h; sourceTree = "<group>"; };
 		25A1132614D9BCF7000720E7 /* ARErrorHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARErrorHelper.h; sourceTree = "<group>"; };
 		25A1132714D9C1CF000720E7 /* ARMigrationsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARMigrationsHelper.h; sourceTree = "<group>"; };
-		CA0365BE151FCB5F004167F1 /* NSString+quotedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+quotedString.h"; sourceTree = "<group>"; };
-		CA0365BF151FCB5F004167F1 /* NSString+quotedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+quotedString.m"; sourceTree = "<group>"; };
 		CA3D17B61519257F00FA3F3C /* DropRecordSpecs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DropRecordSpecs.h; sourceTree = "<group>"; };
 		CA3D17B8151926B700FA3F3C /* Cedar-iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Cedar-iOS.framework"; path = "/opt/cedar/cedar/build/Release-iphoneuniversal/Cedar-iOS.framework"; sourceTree = "<absolute>"; };
 		CA3D17BC15192A1B00FA3F3C /* CountSpecs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CountSpecs.h; sourceTree = "<group>"; };
@@ -325,8 +315,6 @@
 		CA6EEA0E154C8B1F00B07AB4 /* ARWhereStatement_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARWhereStatement_Private.h; sourceTree = "<group>"; };
 		CA6EEA16154C8C9000B07AB4 /* ARDataType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARDataType.h; sourceTree = "<group>"; };
 		CA8CB48C152F740F00510A14 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		CA8D9EAD152D7876005F9073 /* NSString+stringWithEscapedQuote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+stringWithEscapedQuote.h"; sourceTree = "<group>"; };
-		CA8D9EAE152D7876005F9073 /* NSString+stringWithEscapedQuote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+stringWithEscapedQuote.m"; sourceTree = "<group>"; };
 		CA8D9EDF152EC5EB005F9073 /* ARJoinSpecs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARJoinSpecs.h; sourceTree = "<group>"; };
 		CA91CD8615504C22002FCF5D /* NSMutableDictionary+addValueToSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+addValueToSet.h"; sourceTree = "<group>"; };
 		CA91CD8715504C22002FCF5D /* NSMutableDictionary+addValueToSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+addValueToSet.m"; sourceTree = "<group>"; };
@@ -683,10 +671,6 @@
 			children = (
 				25998EE514BC1A1D00CA2490 /* NSString+lowercaseFirst.h */,
 				25998EE614BC1A1D00CA2490 /* NSString+lowercaseFirst.m */,
-				CA0365BE151FCB5F004167F1 /* NSString+quotedString.h */,
-				CA0365BF151FCB5F004167F1 /* NSString+quotedString.m */,
-				CA8D9EAD152D7876005F9073 /* NSString+stringWithEscapedQuote.h */,
-				CA8D9EAE152D7876005F9073 /* NSString+stringWithEscapedQuote.m */,
 				CA523D541535F61400565E02 /* NSString+isPresented.h */,
 				CA523D551535F61400565E02 /* NSString+isPresented.m */,
 			);
@@ -1003,7 +987,6 @@
 				CA62C32E151E0EC400E54276 /* ARRelationshipsHelper.h in Headers */,
 				CA62C32C151E0EC400E54276 /* ARErrorHelper.h in Headers */,
 				CA62C32F151E0EC400E54276 /* ARValidationsHelper.h in Headers */,
-				CA8D9EAF152D7876005F9073 /* NSString+stringWithEscapedQuote.h in Headers */,
 				CA523D441535F56100565E02 /* NSData+isPresented.h in Headers */,
 				CA523D4A1535F5AA00565E02 /* NSDecimalNumber+isPresented.h in Headers */,
 				CA523D501535F5F100565E02 /* NSNumber+isPresented.h in Headers */,
@@ -1031,7 +1014,6 @@
 				CAAE32F6152701860080447D /* ARValidatorUniqueness.h in Headers */,
 				CA523D7B1535FAEE00565E02 /* NSDate+isPresented.h in Headers */,
 				CA62C325151E0EC400E54276 /* NSString+sqlRepresentation.h in Headers */,
-				CA0365C0151FCB5F004167F1 /* NSString+quotedString.h in Headers */,
 				CADA6AEF154472D800CCE41D /* NSMutableDictionary+valueToArray.h in Headers */,
 				CADA6AF7154473E600CCE41D /* ARBaseRelationship.h in Headers */,
 				CA9EC799154D550900A9DD4D /* Car.h in Headers */,
@@ -1191,7 +1173,6 @@
 				CAAF5E26151CAC58004C4329 /* ARWhereStatement.m in Sources */,
 				CAF2480D151F298B00120198 /* ARError.m in Sources */,
 				CAF2481A151F383000120198 /* NSData+sqlRepresentation.m in Sources */,
-				CA0365C2151FCB5F004167F1 /* NSString+quotedString.m in Sources */,
 				CABB909E1520DA6600E8D082 /* ARRelationBelongsTo.m in Sources */,
 				CABB90A41520E63200E8D082 /* ARRelationHasMany.m in Sources */,
 				CABB90B41520F60700E8D082 /* ARRelationHasManyThrough.m in Sources */,
@@ -1212,7 +1193,6 @@
 				CAAE33B71528C4500080447D /* User.m in Sources */,
 				CAAE33B91528C4500080447D /* UserProjectRelationship.m in Sources */,
 				CAAE33BD1528C4710080447D /* AppDelegate.m in Sources */,
-				CA8D9EB1152D7876005F9073 /* NSString+stringWithEscapedQuote.m in Sources */,
 				CA523D461535F56100565E02 /* NSData+isPresented.m in Sources */,
 				CA523D4C1535F5AA00565E02 /* NSDecimalNumber+isPresented.m in Sources */,
 				CA523D521535F5F100565E02 /* NSNumber+isPresented.m in Sources */,
@@ -1246,7 +1226,6 @@
 				CAAF5E25151CAC58004C4329 /* ARWhereStatement.m in Sources */,
 				CAF2480C151F298B00120198 /* ARError.m in Sources */,
 				CAF24819151F383000120198 /* NSData+sqlRepresentation.m in Sources */,
-				CA0365C1151FCB5F004167F1 /* NSString+quotedString.m in Sources */,
 				CABB909D1520DA6600E8D082 /* ARRelationBelongsTo.m in Sources */,
 				CABB90A31520E63200E8D082 /* ARRelationHasMany.m in Sources */,
 				CABB90B31520F60700E8D082 /* ARRelationHasManyThrough.m in Sources */,
@@ -1268,7 +1247,6 @@
 				CAAE33B81528C4500080447D /* UserProjectRelationship.m in Sources */,
 				CAAE33BC1528C4710080447D /* AppDelegate.m in Sources */,
 				CAAE33BF1528C47E0080447D /* main.m in Sources */,
-				CA8D9EB0152D7876005F9073 /* NSString+stringWithEscapedQuote.m in Sources */,
 				CA523D401535F50500565E02 /* NSDate+isPresented.m in Sources */,
 				CA523D451535F56100565E02 /* NSData+isPresented.m in Sources */,
 				CA523D4B1535F5AA00565E02 /* NSDecimalNumber+isPresented.m in Sources */,
@@ -1303,7 +1281,6 @@
 				CA62C33D151E0F0700E54276 /* ARDatabaseManager.m in Sources */,
 				CAF2480E151F298B00120198 /* ARError.m in Sources */,
 				CAF2481B151F383000120198 /* NSData+sqlRepresentation.m in Sources */,
-				CA0365C3151FCB5F004167F1 /* NSString+quotedString.m in Sources */,
 				CABB909F1520DA6600E8D082 /* ARRelationBelongsTo.m in Sources */,
 				CABB90A51520E63200E8D082 /* ARRelationHasMany.m in Sources */,
 				CABB90B51520F60700E8D082 /* ARRelationHasManyThrough.m in Sources */,
@@ -1313,7 +1290,6 @@
 				CAAE32FF1527079F0080447D /* ARValidation.m in Sources */,
 				CAAE3305152715270080447D /* ARValidatorPresence.m in Sources */,
 				CAAE334A1528819D0080447D /* ARException.m in Sources */,
-				CA8D9EB2152D7876005F9073 /* NSString+stringWithEscapedQuote.m in Sources */,
 				CA523D471535F56100565E02 /* NSData+isPresented.m in Sources */,
 				CA523D4D1535F5AA00565E02 /* NSDecimalNumber+isPresented.m in Sources */,
 				CA523D531535F5F100565E02 /* NSNumber+isPresented.m in Sources */,

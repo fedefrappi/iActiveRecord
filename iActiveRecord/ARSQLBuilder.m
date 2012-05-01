@@ -77,7 +77,30 @@
                       [values componentsJoinedByString:@","]];
 }
 
-
+- (void)buildForUpdate {
+   isBuilded = YES;
+    if(self.record == nil){
+        [NSException raise:@"You must specify record with builder"
+                    format:@""];
+    }
+    NSArray *updatedColumns = [[self.record updatedColumns] copy];
+    NSMutableArray *columns = [NSMutableArray arrayWithCapacity:updatedColumns.count];
+    
+    for(ARColumn *column in updatedColumns){
+        [columns addObject:[NSString stringWithFormat:
+                            @"'%@'=?", 
+                            column.columnName]];
+        [self.valuesArray addObject:[self.record 
+                                     valueForKey:column.columnName]];
+    }
+    [updatedColumns release];
+    
+    self.sqlString = [NSMutableString 
+                      stringWithFormat:@"UPDATE '%@' SET %@ WHERE id = %@", 
+                      self.record.recordName,
+                      [columns componentsJoinedByString:@","],
+                      self.record.id];
+}
 
 - (NSString *)sql {
     return self.sqlString;

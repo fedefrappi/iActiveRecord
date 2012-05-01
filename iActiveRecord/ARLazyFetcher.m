@@ -11,7 +11,6 @@
 #import "ARWhereStatement.h"
 #import "ARObjectProperty.h"
 #import "NSString+lowercaseFirst.h"
-#import "NSString+quotedString.h"
 
 static const char *joins[] = {"LEFT", "RIGHT", "INNER", "OUTER"};
 
@@ -155,9 +154,9 @@ static NSString* joinString(ARJoinType type)
         for(NSString *key in [orderByConditions allKeys]){
             NSString *order = [[orderByConditions valueForKey:key] boolValue] ? @"ASC" : @"DESC";
             [statement appendFormat:
-             @" %@.%@ %@ ,", 
-             [[recordClass performSelector:@selector(recordName)] quotedString], 
-             [key quotedString], 
+             @" '%@'.'%@' %@ ,", 
+             [recordClass performSelector:@selector(recordName)] , 
+             key, 
              order];
         }
         [statement replaceCharactersInRange:NSMakeRange(statement.length - 1, 1) withString:@""];
@@ -215,15 +214,15 @@ static NSString* joinString(ARJoinType type)
     NSString *fieldname = nil;
     for(NSString *field in [self recordFields]){
         fieldname = [NSString stringWithFormat:
-                     @"%@.%@", 
-                     [[recordClass performSelector:@selector(recordName)] quotedString],
-                     [field quotedString]];
+                     @"'%@'.'%@'", 
+                     [recordClass performSelector:@selector(recordName)],
+                     field];
         [fields addObject:fieldname];
     }
     [statement appendFormat:
-     @"%@ FROM %@ ", 
+     @"%@ FROM '%@' ", 
      [fields componentsJoinedByString:@","], 
-     [[recordClass performSelector:@selector(recordName)] quotedString]];
+     [recordClass performSelector:@selector(recordName)]];
     return statement;
 }
 

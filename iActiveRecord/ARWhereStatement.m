@@ -7,8 +7,6 @@
 //
 
 #import "ARWhereStatement.h"
-#import "NSString+quotedString.h"
-#import "NSString+stringWithEscapedQuote.h"
 #import "ARWhereStatement_Private.h"
 
 @implementation ARWhereStatement

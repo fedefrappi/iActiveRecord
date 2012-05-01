@@ -8,6 +8,7 @@
 
 #import "SaveLoadSpecs.h"
 #import "ColumnSpecs.h"
+/*
 #import "DependencySpecs.h"
 #import "FooSpec.h"
 #import "DatabaseManagerSpecs.h"
@@ -22,3 +23,4 @@
 #import "UnicodeSpecs.h"
 #import "ARJoinSpecs.h"
 #import "NSDataSpecs.h"
+*/

@@ -17,7 +17,6 @@
 #import "ARMigrationsHelper.h"
 #import "NSObject+properties.h"
 #import "NSArray+objectsAccessors.h"
-#import "NSString+quotedString.h"
 #import "ARDatabaseManager.h"
 
 #import "ARRelationBelongsTo.h"
@@ -31,7 +30,6 @@
 #import "ARValidatorPresence.h"
 #import "ARException.h"
 
-#import "NSString+stringWithEscapedQuote.h"
 #import "NSMutableDictionary+valueToArray.h"
 
 #import "ActiveRecord_Private.h"
@@ -248,13 +246,13 @@ static NSString *registerHasManyThrough = @"_ar_registerHasManyThrough";
 
 + (const char *)sqlOnAddColumn:(NSString *)aColumn {
     NSMutableString *sqlString = [NSMutableString stringWithFormat:
-                                  @"ALTER TABLE %@ ADD COLUMN ", 
-                                  [[self recordName] quotedString]];
+                                  @"ALTER TABLE '%@' ADD COLUMN ", 
+                                  [self recordName]];
     NSString *propertyClassName = [self propertyClassNameWithPropertyName:aColumn];
     Class PropertyClass = NSClassFromString(propertyClassName);
     [sqlString appendFormat:
-     @"%@ %s", 
-     [aColumn quotedString],
+     @"'%@' %s", 
+     aColumn,
      [PropertyClass performSelector:@selector(sqlType)]];
     return [sqlString UTF8String];
 }
@@ -262,8 +260,8 @@ static NSString *registerHasManyThrough = @"_ar_registerHasManyThrough";
 + (const char *)sqlOnCreate {
     [self initIgnoredFields];
     NSMutableString *sqlString = [NSMutableString stringWithFormat:
-                                  @"create table %@(id integer primary key unique ", 
-                                  [[self recordName] quotedString]];
+                                  @"create table '%@'(id integer primary key unique ", 
+                                  [self recordName]];
     NSArray *properties = [self activeRecordProperties];
     if([properties count] == 0){
         return NULL;
@@ -273,7 +271,7 @@ static NSString *registerHasManyThrough = @"_ar_registerHasManyThrough";
         if(![property.propertyName isEqualToString:@"id"]){
             propertyClass = NSClassFromString(property.propertyType);
             [sqlString appendFormat:@", %@ %s", 
-             [property.propertyName quotedString], 
+             property.propertyName, 
             [propertyClass performSelector:@selector(sqlType)]];
         }
     }
@@ -283,20 +281,21 @@ static NSString *registerHasManyThrough = @"_ar_registerHasManyThrough";
 
 - (const char *)sqlOnDelete {
     NSString *sqlString = [NSString stringWithFormat:
-                           @"delete from %@ where id = %@", 
-                           [[self recordName] quotedString], 
+                           @"delete from '%@' where id = %@", 
+                           [self recordName], 
                            self.id];
     return [sqlString UTF8String];
 }
 
+/*
 - (const char *)sqlOnUpdate {
-    NSMutableString *sqlString = [NSMutableString stringWithFormat:@"UPDATE %@ SET ", 
-                                  [[self recordName] quotedString]];
+    NSMutableString *sqlString = [NSMutableString stringWithFormat:@"UPDATE '%@' SET ", 
+                                  [self recordName]];
     NSArray *updatedValues = [changedFields allObjects];
     NSInteger index = 0;
     NSString *propertyName = [updatedValues objectAtIndex:index++];
     id propertyValue = [self valueForKey:propertyName];
-    [sqlString appendFormat:@"%@=%@", [propertyName quotedString], 
+    [sqlString appendFormat:@"%@=%@", propertyName, 
      [[[propertyValue performSelector:@selector(toSql)] 
        stringWithEscapedQuote] 
       quotedString]];
@@ -311,10 +310,10 @@ static NSString *registerHasManyThrough = @"_ar_registerHasManyThrough";
     }
     [sqlString appendFormat:@" WHERE id = %@", self.id];
     return [sqlString UTF8String];
-}
+}*/
 
 + (const char *)sqlOnDeleteAll {
-    NSString *sql = [NSString stringWithFormat:@"DELETE FROM %@", [[self recordName] quotedString]];
+    NSString *sql = [NSString stringWithFormat:@"DELETE FROM '%@'", [self recordName]];
     return [sql UTF8String];
 }
 
@@ -423,6 +422,7 @@ static NSString *registerHasManyThrough = @"_ar_registerHasManyThrough";
     NSInteger last_id = [[ARDatabaseManager sharedInstance] saveRecord:self];
     if(last_id){
         self.id = [NSNumber numberWithInt:last_id];
+        isNew = NO;
         [self.updatedColumns removeAllObjects];
     }
     return NO;
@@ -432,18 +432,25 @@ static NSString *registerHasManyThrough = @"_ar_registerHasManyThrough";
     if(![self isValid]){
         return NO;
     }
-    if(![changedFields count]){
+    if(![updatedColumns count]){
         return YES;
     }
     self.updatedAt = [NSDate dateWithTimeIntervalSinceNow:0];
-    const char *sql = [self sqlOnUpdate];
-    if(NULL != sql){
-        [[ARDatabaseManager sharedInstance] executeSqlQuery:sql];
+    NSInteger result = [[ARDatabaseManager sharedInstance] updateRecord:self];
+    if(result){
         isNew = NO;
-        [changedFields removeAllObjects];
+        [self.updatedColumns removeAllObjects];
         return YES;
     }
     return NO;
+//    const char *sql = [self sqlOnUpdate];
+//    if(NULL != sql){
+//        [[ARDatabaseManager sharedInstance] executeSqlQuery:sql];
+//        isNew = NO;
+//        [changedFields removeAllObjects];
+//        return YES;
+//    }
+//    return NO;
 }
 
 + (NSInteger)count {
